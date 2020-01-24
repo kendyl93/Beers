@@ -1,0 +1,30 @@
+@import 'partials';
+
+.list-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  .item-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: solid 2px blue;
+    padding: 32px 8px;
+    box-sizing: border-box;
+
+    @media screen and (min-width: $small) {
+      margin: 5px;
+      flex: 0 1 calc(50% - 10px);
+    }
+
+    @media screen and (min-width: $medium) {
+      flex: 0 1 calc(33.33% - 10px);
+    }
+
+    @media screen and (min-width: $large) {
+      flex: 0 1 calc(25% - 10px);
+    }
+  }
+}
