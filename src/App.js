@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Beers from './Beers/BeersContainer';
+import Beers from './Beers/model/Container';
 
 import './App.scss';
 
 const App = () => (
   <div>
-    <h1>REACT</h1>
+    <h1>BEERGURU</h1>
     <Beers />
   </div>
 );

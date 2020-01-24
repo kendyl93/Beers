@@ -27,7 +27,3 @@ export const beersReducer = (state = {}, action) => {
       return state;
   }
 };
-
-export const getBeers = state => state.beers;
-export const getBeersPending = state => state.pending;
-export const getBeersError = state => state.error;

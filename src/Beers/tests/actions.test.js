@@ -2,12 +2,12 @@ import {
   fetchBeersPending,
   fetchBeersError,
   fetchBeersSuccess
-} from '../actions';
+} from '../model/actions';
 import {
   FETCH_BEERS_PENDING,
   FETCH_BEERS_SUCCESS,
   FETCH_BEERS_ERROR
-} from '../types';
+} from '../model/types';
 
 describe('Beers actions', () => {
   it('FETCH_BEERS_PENDING', () => {
