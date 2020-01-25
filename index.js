@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import configureStore from './src/model/store';
 import App from './src/App';
 
+import './index.scss';
+
 const store = configureStore();
 
 const WithProvider = ({ store }) => (

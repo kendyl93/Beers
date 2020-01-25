@@ -2,11 +2,13 @@ import React from 'react';
 
 import Beers from './Beers/model/Container';
 
+import './App.scss';
+
 const App = () => (
-  <div>
+  <main className="app">
     <h1>BEERGURU</h1>
     <Beers />
-  </div>
+  </main>
 );
 
 export default App;

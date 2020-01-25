@@ -15,11 +15,7 @@ class ErrorBoundary extends PureComponent {
     const { children } = this.props;
 
     if (error) {
-      return (
-        <div>
-          <ErrorView />
-        </div>
-      );
+      return <ErrorView />;
     }
 
     return children;

@@ -1,0 +1,8 @@
+@import 'partials';
+
+#root {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  height: calc(100vh - #{$marginUnit} * 2);
+}
