@@ -2,12 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Spinner from './Spinner';
+import RollingSpinner from './RollingSpinner';
 
-describe('Spinner', () => {
+describe('<Spinner />', () => {
   const wrapper = shallow(<Spinner />);
 
-  it('should have a RollingSpinner component', () => {
-    // There should be only one button
-    expect(wrapper.find('svg')).toHaveLength(1);
+  it('should render a <RollingSpinner />', () => {
+    expect(wrapper.find(RollingSpinner)).toHaveLength(1);
   });
 });
