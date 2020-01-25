@@ -2,6 +2,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['@babel/polyfill', './index.js'],
+  output: { publicPath: '/' },
   module: {
     rules: [
       {
@@ -41,6 +42,7 @@ module.exports = {
       }
     ]
   },
+  devServer: { historyApiFallback: true, contentBase: './', hot: true },
   devtool: 'cheap-module-eval-source-map',
   plugins: [
     new HtmlWebPackPlugin({
