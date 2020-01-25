@@ -35,6 +35,14 @@
       "pre-push": "lint-staged &&  npm run test"
     }
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/src/tests/__mocks__/styleMock.js"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/tests/setupTest.js"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kendyl93/BeerGuru.git"
@@ -56,6 +64,9 @@
     "babel-jest": "25.1.0",
     "babel-loader": "8.0.6",
     "css-loader": "3.4.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.3",
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "6.8.0",
