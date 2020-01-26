@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import BeersList from '../Components/BeersList';
+
 const Details = ({
   similar,
   beer: {
@@ -29,23 +31,26 @@ const Details = ({
   return (
     <div>
       <div>
-        name:
-        {name}
-      </div>
-      <div>
-        id:
-        {id}
-      </div>
+        <div>
+          name:
+          {name}
+        </div>
+        <div>
+          id:
+          {id}
+        </div>
 
-      <div>
-        tagline:
-        {tagline}
-      </div>
+        <div>
+          tagline:
+          {tagline}
+        </div>
 
-      <div>
-        imagUrl:
-        <img src={imagUrl} alt={name} height="100px" width="auto" />
+        <div>
+          imagUrl:
+          <img src={imagUrl} alt={name} height="100px" width="auto" />
+        </div>
       </div>
+      <BeersList beers={similar} />
     </div>
   );
 };
