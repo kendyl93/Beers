@@ -4,7 +4,7 @@ import {
   FETCH_BEERS_ERROR
 } from './types';
 
-export const beersReducer = (state = {}, action) => {
+export const beersReducer = (state = { beers: [] }, action) => {
   switch (action.type) {
     case FETCH_BEERS_PENDING:
       return {
@@ -15,7 +15,7 @@ export const beersReducer = (state = {}, action) => {
       return {
         ...state,
         pending: false,
-        beers: action.beers
+        beers: [...state.beers, ...action.beers]
       };
     case FETCH_BEERS_ERROR:
       return {

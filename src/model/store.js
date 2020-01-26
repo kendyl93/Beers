@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './reducer';
 
-const initialState = { beers: [] };
+const initialState = {};
 
 const configureStore = () =>
   createStore(rootReducer, initialState, applyMiddleware(logger, thunk));

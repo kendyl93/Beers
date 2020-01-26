@@ -3,19 +3,23 @@ import {
   fetchBeersSuccess,
   fetchBeersError
 } from './actions';
+import { addPage } from '../Pagination/actions';
 
-const API_ENDPOINT = 'https://api.punkapi.com/v2/beers';
+const apiEndpoint = page =>
+  `https://api.punkapi.com/v2/beers?page=${page}&per_page=20`;
 const FETCH_OPTIONS = { method: 'GET' };
 
-const fetchBeers = () => {
+const fetchBeers = page => {
   return async dispatch => {
     dispatch(fetchBeersPending());
+    console.log({ page });
 
     try {
-      const response = await fetch(API_ENDPOINT, FETCH_OPTIONS);
+      const response = await fetch(apiEndpoint(page), FETCH_OPTIONS);
       const beers = await response.json();
 
       dispatch(fetchBeersSuccess(beers));
+      dispatch(addPage(page));
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);

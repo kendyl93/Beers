@@ -1,11 +1,15 @@
-import { ADD } from './actionTypes';
+import { ADD_PAGE } from './actionTypes';
 
-export const paginationReducer = (state = { page: 0 }, action) => {
+const initialState = { page: 1 };
+
+export const paginationReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD:
+    case ADD_PAGE:
+      console.log({ state, action });
+
       return {
         ...state,
-        page: state.page + 1
+        page: action.page + 1
       };
     default:
       return state;
