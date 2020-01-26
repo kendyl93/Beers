@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, useLocation } from 'react-router-dom';
 
-import Details from '../Beers/Components/Details';
+import Details from '../Details/Details';
 import App from '../App';
 
 const AppSwitch = ({ singleElementPath }) => {
