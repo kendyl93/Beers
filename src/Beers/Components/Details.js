@@ -1,9 +1,10 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-const Details = props => {
-  console.log({ LOC: window.location });
+const Details = () => {
+  const { id } = useParams();
 
-  return <div>Details</div>;
+  return <div>{id}</div>;
 };
 
 export default Details;
