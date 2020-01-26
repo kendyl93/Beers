@@ -1,22 +1,25 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-
-import Details from '../../Beers/Components/Details';
+import PropTypes from 'prop-types';
 
 import './Modal.scss';
 
-const Modal = () => {
+const Modal = ({ children }) => {
   const { id } = useParams();
 
   return (
     <div className="modal-wrapper">
       <div className="modal-body">
         <h1>{id}</h1>
-        <Details id={id} />
+        {children}
         <Link to="/">Close</Link>
       </div>
     </div>
   );
+};
+
+Modal.propTypes = {
+  children: PropTypes.node
 };
 
 export default Modal;

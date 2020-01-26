@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import AppSwitch from './AppSwitch';
 import Modal from '../UI/Modal/Modal';
+import Details from '../Beers/Components/Details';
 
 const WithModal = () => {
   const singleElementPath = '/details/:id';
@@ -11,7 +12,9 @@ const WithModal = () => {
     <div>
       <AppSwitch singleElementPath={singleElementPath} />
       <Route path={singleElementPath}>
-        <Modal />
+        <Modal>
+          <Details />
+        </Modal>
       </Route>
     </div>
   );
