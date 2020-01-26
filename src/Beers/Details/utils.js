@@ -1,7 +1,7 @@
 import {
   ascending,
   calculateSourceDifference,
-  standardDeviation
+  averagedStandardDeviation
 } from '../../helpers';
 
 const BEER_ID_INDEX = 0;
@@ -30,7 +30,9 @@ export const getSimilarIds = sourceBeer => beers => {
 
         const differenceValues = [ibuDifference, abvDifference, ebcDifference];
 
-        const standardDeviationValue = standardDeviation(differenceValues);
+        const standardDeviationValue = averagedStandardDeviation(
+          differenceValues
+        );
 
         const withId = [id, standardDeviationValue];
 

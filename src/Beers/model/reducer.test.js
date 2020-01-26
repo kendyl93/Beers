@@ -1,10 +1,10 @@
-import { getBeers, getBeersPending, getBeersError } from '../model/selectors';
-import { beersReducer } from '../model/reducer';
+import { getBeers, getBeersPending, getBeersError } from './selectors';
+import { beersReducer } from './reducer';
 import {
   FETCH_BEERS_SUCCESS,
   FETCH_BEERS_ERROR,
   FETCH_BEERS_PENDING
-} from '../model/types';
+} from './types';
 
 describe('reducer', () => {
   it('should return the initial state', () => {
