@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, useLocation } from 'react-router-dom';
 
-import Details from '../Details/Details';
+import DetailsView from '../Beers/Details/DetailsView';
 import App from '../App';
 
 const AppSwitch = ({ singleElementPath }) => {
@@ -15,7 +15,7 @@ const AppSwitch = ({ singleElementPath }) => {
         <App />
       </Route>
       <Route exact path={singleElementPath}>
-        <Details />
+        <DetailsView />
       </Route>
     </Switch>
   );
