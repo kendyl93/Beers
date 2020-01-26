@@ -8,6 +8,7 @@ import { getBeers } from '../model/selectors';
 import Details from './Details';
 import WithSimilar from '../../HOC/WithSimilar';
 
+const BEER_ID_INDEX = 0;
 const STANDARD_DEVIATION_VALUE_INDEX = 1;
 
 const byId = sourceId => ({ id }) => id === sourceId;
@@ -15,6 +16,8 @@ const byId = sourceId => ({ id }) => id === sourceId;
 const ascending = index => (a, b) => a[index] - b[index];
 
 const calculateDifference = sourceValue => value => sourceValue - value;
+
+const calculateSourceDifference = source => source.map(calculateDifference);
 
 const add = (sum, value) => sum + value;
 
@@ -40,10 +43,13 @@ const standardDeviation = data => {
 const getSimilarIds = sourceBeer => beers => {
   const { ibu: sourceIbu = 0, abv: sourceAbv = 0, ebc: sourceEbc = 0 } =
     sourceBeer || {};
+  const sourceValues = [sourceIbu, sourceAbv, sourceEbc];
 
-  const calculateIbuDifference = calculateDifference(sourceIbu);
-  const calculateAbvDifference = calculateDifference(sourceAbv);
-  const calculateEbcDifference = calculateDifference(sourceEbc);
+  const [
+    calculateIbuDifference,
+    calculateAbvDifference,
+    calculateEbcDifference
+  ] = calculateSourceDifference(sourceValues);
 
   const ascendingStandardDeviation = ascending(STANDARD_DEVIATION_VALUE_INDEX);
 
@@ -55,29 +61,28 @@ const getSimilarIds = sourceBeer => beers => {
         const abvDifference = calculateAbvDifference(abv);
         const ebcDifference = calculateEbcDifference(ebc);
 
-        return [
-          id,
-          standardDeviation([ibuDifference, abvDifference, ebcDifference])
-        ];
+        const differenceValues = [ibuDifference, abvDifference, ebcDifference];
+
+        const standardDeviationValue = standardDeviation(differenceValues);
+
+        const withId = [id, standardDeviationValue];
+
+        return withId;
       })
       .sort(ascendingStandardDeviation);
 
-  const similar = withStandardDeviation && [
-    withStandardDeviation[0][0],
-    withStandardDeviation[1][0],
-    withStandardDeviation[2][0]
-  ];
+  const withoutItself = withStandardDeviation.slice(1, 4);
+  const similarIds = withoutItself.map(beer => beer[BEER_ID_INDEX]);
 
-  return similar;
+  return similarIds;
 };
 
 const DetailsView = ({ beers }) => {
   const { id: currentBeerId } = useParams();
   const byCurrentBeerId = byId(Number(currentBeerId));
   const beer = beers && beers.find(byCurrentBeerId);
-  const getSimilarIdsToCurrentBeer = getSimilarIds(beer);
-  const similar = getSimilarIdsToCurrentBeer(beers);
-
+  const getSimilarIdsToCurrentBeer = beer && getSimilarIds(beer);
+  const similar = beers && getSimilarIdsToCurrentBeer(beers);
   const DetailsWithSimilarBeers = WithSimilar(similar)(Details);
 
   return beer ? <DetailsWithSimilarBeers beer={beer} /> : <EmptyView />;
