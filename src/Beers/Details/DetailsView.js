@@ -13,7 +13,6 @@ const DetailsView = ({ beers }) => {
   const { id: currentBeerId } = useParams();
   const byCurrentBeerId = byId(Number(currentBeerId));
   const currentBeer = beers && beers.find(byCurrentBeerId);
-  const { name, tagline } = currentBeer || {};
 
   return currentBeer ? <Details beer={currentBeer} /> : <EmptyView />;
 };

@@ -46,6 +46,7 @@ const Details = ({
 );
 
 Details.propTypes = {
+  beer: PropTypes.object,
   name: PropTypes.string,
   id: PropTypes.string,
   tagline: PropTypes.string,
