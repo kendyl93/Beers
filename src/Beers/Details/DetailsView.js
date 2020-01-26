@@ -18,13 +18,18 @@ const average = data => {
   return sum / data.length;
 };
 
-const squareDifference = data =>
-  data.map(value => (value - average(data)) ** 2);
+const squareDifference = data => average =>
+  data.map(value => (value - average) ** 2);
 
 const standardDeviation = data => {
-  const dataSquareDifference = squareDifference(data);
+  const averageData = average(data);
+  const dataSquareDifference = squareDifference(data)(averageData);
+  const averageSquareDifference = average(dataSquareDifference);
+  const roundedStandardDeviation = parseFloat(
+    Math.sqrt(averageSquareDifference).toFixed(2)
+  );
 
-  return Math.sqrt(average(dataSquareDifference));
+  return roundedStandardDeviation;
 };
 
 const DetailsView = ({ beers }) => {
