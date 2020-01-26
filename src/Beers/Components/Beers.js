@@ -5,7 +5,7 @@ import BeersList from './BeersList';
 import ErrorBoundary from '../../UI/Error/ErrorBoundary';
 import LoadingOrError from '../../UI/LoadingOrError';
 
-const Beers = ({ fetchBeers, pending, error, beers }) => {
+const Beers = ({ fetchBeers, pending, error, beers, addPage, page }) => {
   const maybeBeersFetched = !pending && beers;
 
   useEffect(() => {
@@ -22,7 +22,10 @@ const Beers = ({ fetchBeers, pending, error, beers }) => {
   });
 
   const view = maybeBeersFetched ? (
-    <BeersList beers={beers} />
+    <div>
+      <BeersList beers={beers} />
+      <button onClick={addPage}>asdasdasdasdasdasd</button>
+    </div>
   ) : (
     <LoadingOrError error={error} />
   );

@@ -3,15 +3,18 @@ import { bindActionCreators } from 'redux';
 
 import fetchBeers from './fetchBeers';
 import { getBeersError, getBeers, getBeersPending } from './selectors';
+import { addPage } from '../Pagination/actions';
+import { getPage } from '../Pagination/selectors';
 import Beers from '../Components/Beers';
 
-const mapStateToProps = ({ beersReducer }) => ({
+const mapStateToProps = ({ beersReducer, paginationReducer }) => ({
   error: getBeersError(beersReducer),
   beers: getBeers(beersReducer),
-  pending: getBeersPending(beersReducer)
+  pending: getBeersPending(beersReducer),
+  page: getPage(paginationReducer)
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchBeers }, dispatch);
+  bindActionCreators({ fetchBeers, addPage }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Beers);
