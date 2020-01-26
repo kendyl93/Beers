@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Details = ({
+  similar,
   beer: {
     name,
     id,
@@ -22,30 +23,35 @@ const Details = ({
     boilVolume,
     method
   }
-}) => (
-  <div>
-    <div>
-      name:
-      {name}
-    </div>
-    <div>
-      id:
-      {id}
-    </div>
+}) => {
+  console.log({ similar });
 
+  return (
     <div>
-      tagline:
-      {tagline}
-    </div>
+      <div>
+        name:
+        {name}
+      </div>
+      <div>
+        id:
+        {id}
+      </div>
 
-    <div>
-      imagUrl:
-      <img src={imagUrl} alt={name} height="100px" width="auto" />
+      <div>
+        tagline:
+        {tagline}
+      </div>
+
+      <div>
+        imagUrl:
+        <img src={imagUrl} alt={name} height="100px" width="auto" />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Details.propTypes = {
+  similar: PropTypes.array,
   beer: PropTypes.object,
   name: PropTypes.string,
   id: PropTypes.string,
