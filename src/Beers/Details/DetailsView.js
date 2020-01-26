@@ -8,7 +8,13 @@ import { getBeers } from '../model/selectors';
 import Details from './Details';
 import WithSimilar from '../../HOC/WithSimilar';
 
+const STANDARD_DEVIATION_VALUE_INDEX = 1;
+
 const byId = sourceId => ({ id }) => id === sourceId;
+
+const ascending = index => (a, b) => a[index] - b[index];
+
+const calculateDifference = sourceValue => value => sourceValue - value;
 
 const add = (sum, value) => sum + value;
 
@@ -31,25 +37,46 @@ const standardDeviation = data => {
 
   return roundedStandardDeviation;
 };
+const getSimilarIds = sourceBeer => beers => {
+  const { ibu: sourceIbu = 0, abv: sourceAbv = 0, ebc: sourceEbc = 0 } =
+    sourceBeer || {};
+
+  const calculateIbuDifference = calculateDifference(sourceIbu);
+  const calculateAbvDifference = calculateDifference(sourceAbv);
+  const calculateEbcDifference = calculateDifference(sourceEbc);
+
+  const ascendingStandardDeviation = ascending(STANDARD_DEVIATION_VALUE_INDEX);
+
+  const withStandardDeviation =
+    beers &&
+    beers
+      .map(({ ibu = 0, abv = 0, ebc = 0, id }) => {
+        const ibuDifference = calculateIbuDifference(ibu);
+        const abvDifference = calculateAbvDifference(abv);
+        const ebcDifference = calculateEbcDifference(ebc);
+
+        return [
+          id,
+          standardDeviation([ibuDifference, abvDifference, ebcDifference])
+        ];
+      })
+      .sort(ascendingStandardDeviation);
+
+  const similar = withStandardDeviation && [
+    withStandardDeviation[0][0],
+    withStandardDeviation[1][0],
+    withStandardDeviation[2][0]
+  ];
+
+  return similar;
+};
 
 const DetailsView = ({ beers }) => {
   const { id: currentBeerId } = useParams();
   const byCurrentBeerId = byId(Number(currentBeerId));
   const beer = beers && beers.find(byCurrentBeerId);
-
-  const { ibu: sourceIBU = 0, abv: sourceABV = 0, ebc: sourceEBC = 0 } =
-    beer || {};
-  const KORR =
-    beers &&
-    beers.map(({ ibu = 0, abv = 0, ebc = 0 }) => {
-      const ibuDifference = sourceIBU - ibu;
-      const abvDifference = sourceABV - abv;
-      const ebcDifference = sourceEBC - ebc;
-
-      return standardDeviation([ibuDifference, abvDifference, ebcDifference]);
-    });
-  console.log({ KORR });
-  const similar = beers && [beers[0], beers[1], beers[2]]; // TODO
+  const getSimilarIdsToCurrentBeer = getSimilarIds(beer);
+  const similar = getSimilarIdsToCurrentBeer(beers);
 
   const DetailsWithSimilarBeers = WithSimilar(similar)(Details);
 
