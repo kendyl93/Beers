@@ -6,6 +6,7 @@
 
   .item-wrapper {
     @include boxShadow;
+    @include transition;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,7 +26,17 @@
       flex: 0 1 calc(33.33% - 20px);
     }
 
+    &:hover {
+      box-shadow: 0px 0px 7px -2px rgba(0, 214, 100, 1);
+      color: $greenNetGuru;
+
+      img {
+        transform: scale(1.05);
+      }
+    }
+
     img {
+      @include transition;
       padding: 16px 0;
     }
   }
