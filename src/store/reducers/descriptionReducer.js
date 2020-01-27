@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionTypes';
+import { GET_BEER } from '../actions/actionTypes';
 
 const initialState = {
   item: {}
@@ -6,13 +6,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.PASS_ITEM:
+    case GET_BEER:
       return {
         item: action.itemObject
       };
+    default:
+      return state;
   }
-
-  return state;
 };
 
 export default reducer;

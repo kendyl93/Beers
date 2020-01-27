@@ -1,9 +1,5 @@
-import * as actionTypes from './actionTypes';
+import { OPEN_MODAL, CLOSE_MODAL } from './actionTypes';
 
-export const openModal = () => {
-  return { type: actionTypes.OPEN_MODAL };
-};
+export const openModal = () => ({ type: OPEN_MODAL });
 
-export const closeModal = () => {
-  return { type: actionTypes.CLOSE_MODAL };
-};
+export const closeModal = () => ({ type: CLOSE_MODAL });

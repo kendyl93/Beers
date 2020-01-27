@@ -1,2 +1,2 @@
-export { passItem } from './descriptionActions';
+export { passItem } from './detailsActions';
 export { openModal, closeModal } from './modalActions';
