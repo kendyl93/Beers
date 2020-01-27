@@ -5,7 +5,13 @@ import Description from '../Description/Description';
 import './Page.scss';
 
 class Page extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    console.log({ prop: this.props });
+
     return (
       <div className="Page">
         <Description {...this.props} />

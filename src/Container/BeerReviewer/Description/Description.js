@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import LoadingOrError from '../../ErrorBoundary/LoadingOrError';;
-import {axiosBeerApi} from '../../../api';
+import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
+import { axiosBeerApi } from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
 
@@ -15,20 +15,20 @@ class Description extends Component {
   };
 
   singleBeerHandler = itemID => {
-    this.setState({ isError: false });;
+    this.setState({ isError: false });
     const query = `/${itemID}`;
     axiosBeerApi
       .get(query)
       .then(res => {
         if (statusHandler(res)) throw statusHandler(res);
-        return res.data.shift();;
+        return res.data.shift();
       })
       .catch(er => er)
       .then(item => {
         if (itemErrorChecker(item)) return;
-        this.props.getItemHandler(item);;
-        this.setState({ isLoading: false });;
-      });;
+        this.props.getItemHandler(item);
+        this.setState({ isLoading: false });
+      });
   };
 
   // if item is undefined then read its id from location
@@ -44,14 +44,14 @@ class Description extends Component {
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.beer !== this.props.beer || this.state.isLoading;;
+    return nextProps.beer !== this.props.beer || this.state.isLoading;
   }
 
   componentDidMount = () => {
     // here is it checks has the beer been preloaded or not
     const beer = this.props.beer;
     if (Object.keys(beer).length !== 0 && beer.constructor === Object) return;
-    this.item();
+    this.beer();
   };
 
   render() {

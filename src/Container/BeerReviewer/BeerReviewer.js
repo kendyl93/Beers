@@ -33,9 +33,9 @@ class BeerReviewer extends Component {
     return (
       <>
         <Modal>
-          <Route path="/beer/" render={props => <Page />} />
+          <Route path="/beer/" render={props => <Page {...props} />} />
         </Modal>
-        <Route path="/" render={props => <List />} />
+        <Route path="/" render={props => <List {...props} />} />
       </>
     );
   }

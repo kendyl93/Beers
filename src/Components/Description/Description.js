@@ -14,17 +14,17 @@ const description = props => {
   } = props.state.beer;
   // test what is a kind of image cover for bottle or keg
   const image = !/keg\.png/i.test(image_url);
-  // 	const imageContainer =
-  //  <div
-  // 			className={image ? 'bottle-cover' : 'keg-cover'}
-  // 			style={{
-  // 				width: '200px',
-  // 				height: image ? '450px' : '300px',
-  // 				backgroundImage: `url("${image_url}")`
-  // 			}}
-  // 			>
-  // 		</div>
-  //  );
+  	const imageContainer =
+   <div
+  			className={image ? 'bottle-cover' : 'keg-cover'}
+  			style={{
+  				width: '200px',
+  				height: image ? '450px' : '300px',
+  				backgroundImage: `url("${image_url}")`
+  			}}
+  			>
+  		</div>
+   );
 
   return (
     <div className="Description">
