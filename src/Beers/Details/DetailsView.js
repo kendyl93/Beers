@@ -27,16 +27,16 @@ const DetailsView = ({ beers }) => {
       return;
     }
 
-    const fetchApi = async () => {
+    const fetchApi = async setAsCurrentBeer => {
       const endpoint = getSingleBeer(currentBeerId);
       const response = await fetch(endpoint, CONFIG);
       const data = await response.json();
       const beer = data.find(byCurrentBeerId);
 
-      setCurrentBeer(beer);
+      setAsCurrentBeer(beer);
     };
 
-    fetchApi();
+    fetchApi(setCurrentBeer);
   }, [byCurrentBeerId, currentBeer, currentBeerId]);
 
   const similarBeers =
