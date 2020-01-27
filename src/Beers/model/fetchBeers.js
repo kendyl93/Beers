@@ -1,7 +1,9 @@
 import {
   fetchBeersPending,
   fetchBeersSuccess,
-  fetchBeersError
+  fetchBeersError,
+  fetchMoreBeersSuccess,
+  fetchMoreBeersLoading
 } from './actions';
 import { addPage } from '../Pagination/actions';
 
@@ -10,7 +12,7 @@ const apiEndpoint = page =>
 
 const FETCH_OPTIONS = { method: 'GET' };
 
-const fetchBeers = page => {
+export const fetchBeers = page => {
   return async dispatch => {
     dispatch(fetchBeersPending());
 
@@ -28,4 +30,22 @@ const fetchBeers = page => {
   };
 };
 
-export default fetchBeers;
+export const loadMoreBeers = page => {
+  return async dispatch => {
+    dispatch(fetchMoreBeersLoading());
+
+    try {
+      const response = await fetch(apiEndpoint(page), FETCH_OPTIONS);
+      const beers = await response.json();
+
+      console.log({ MORE: beers });
+
+      dispatch(fetchMoreBeersSuccess(beers));
+      dispatch(addPage(page));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+      // dispatch(fetchBeersError(error));
+    }
+  };
+};

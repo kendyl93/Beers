@@ -5,11 +5,24 @@ import BeersList from './BeersList';
 import ErrorBoundary from '../../UI/Error/ErrorBoundary';
 import LoadingOrError from '../../UI/LoadingOrError';
 
-const Beers = ({ fetchBeers, pending, error, beers, page }) => {
+const Beers = ({
+  fetchBeers,
+  loadMoreBeers,
+  pending,
+  error,
+  beers,
+  moreBeers,
+  page,
+  loading
+}) => {
   const anyBears = beers.length > 0;
   const maybeBeersFetched = !pending && anyBears;
 
   useEffect(() => {
+    if (loading) {
+      return;
+    }
+    console.log({ moreBeers });
     if (maybeBeersFetched || error) {
       return;
     }
@@ -28,11 +41,11 @@ const Beers = ({ fetchBeers, pending, error, beers, page }) => {
 
   const view = maybeBeersFetched ? (
     <div>
-      <BeersList beers={beers} />
+      <BeersList beers={[...beers, ...moreBeers]} />
       <button
         type="button"
         onClick={() => {
-          fetchBeers(page);
+          loadMoreBeers(page);
         }}
       >
         LOAD MORE
