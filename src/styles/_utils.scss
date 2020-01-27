@@ -1,3 +1,7 @@
+body {
+  background: $grey;
+}
+
 .row-spacing > *:not(:last-child) {
   margin-bottom: 16px;
 }

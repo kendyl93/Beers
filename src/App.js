@@ -6,7 +6,10 @@ import './App.scss';
 
 const App = () => (
   <main className="app">
-    <h1>BEERGURU</h1>
+    <h1>
+      <span className="highlighted-part">BEER</span>
+      GURU
+    </h1>
     <Beers />
   </main>
 );
