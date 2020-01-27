@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import classes from './LoadingSpinner.scss';
-// import { lchmodSync } from 'fs';
+import './LoadingSpinner.scss';
 
 const Loading = () => {
   return (
-    <div className={classes['lds-ellipsis']}>
+    <div className="lds-ellipsis">
       <div />
       <div />
       <div />

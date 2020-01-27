@@ -1,10 +1,6 @@
 import React from 'react';
-import classes from './Toolbar.scss';
+import './Toolbar.scss';
 
-const toolbar = (props) => (
-	<div className={classes.Toolbar}>
-		
-	</div>
-)
+const toolbar = props => <div className="Toolbar" />;
 
-export default toolbar
+export default toolbar;

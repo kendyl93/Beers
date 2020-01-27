@@ -18,11 +18,7 @@ const rootReducer = combineReducers({
 
 const initialState = {};
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  applyMiddleware(logger, thunk)
-);
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 ReactDOM.render(
   <Provider store={store}>

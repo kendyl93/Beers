@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingSpinner from '../../../Components/UI/LoadingSpinner/LoadingSpinner';
-import classes from './List.scss';
-import { axios_beerApi } from '../../../APIs/beerApi';
+import axios_beerApi from '../../../APIs/beerApi';
 import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
+
+import './List.scss';
 
 class List extends Component {
   state = {
@@ -30,7 +31,8 @@ class List extends Component {
     });
     const api = 'https://api.punkapi.com/v2/beers';
     const query = `${api}?page=${page}&per_page=${per_page}`;
-    axios_beerApi(query)
+    axios_beerApi
+      .get(query)
       .then(res => {
         console.log(res);
         if (statusHandler(res)) throw statusHandler(res);
@@ -61,15 +63,17 @@ class List extends Component {
     if (isEndOfList)
       return window.removeEventListener('scroll', this.handleScroll);
     const scrolled = window.innerHeight + window.scrollY;
-    const preBottom = document.body.offsetHeight - 500;
+    const preBottom = window.document.body.offsetHeight;
     const { items } = this.state;
     const isAlreadyLoading = this.state.isLoadingContent;
+    console.log({ AAA: document.body.offsetHeight});
     if (scrolled >= preBottom && items.length && !isAlreadyLoading)
       this.nextBeersDownloader();
   };
 
   componentDidMount = () => {
     const { isEndOfList, isInfiniteScrollON } = this.state;
+    console.log({ isInfiniteScrollON });
     this.nextBeersDownloader();
     if (!isEndOfList && isInfiniteScrollON)
       window.addEventListener('scroll', this.handleScroll);
@@ -83,10 +87,10 @@ class List extends Component {
     const { items, isLoadingContent, isError, isEndOfList } = this.state;
     const errorMessage = <p>An error occured getting data</p>;
     const itemList = (
-      <ul className={classes['item-list']}>
+      <ul className="item-list">
         {items.map(item => (
           <li
-            className={classes.item}
+            className="item"
             key={item.id}
             onClick={() => {
               this.props.openModalHandler();
@@ -108,7 +112,7 @@ class List extends Component {
       window.removeEventListener('scroll', this.handleScroll);
     // handling errors while fetching contents
     return (
-      <div className={classes.List}>
+      <div className="List">
         {content}
         {loading}
         {listEnd}

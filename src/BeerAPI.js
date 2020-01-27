@@ -17,6 +17,7 @@ const handleStatus = res => {
 };
 
 export const getAll = (page, per_page) => {
+  console.log({ page, per_Page });
   const query = `${api}?page=${page}&per_page=${per_page}`;
 
   return fetch(query)

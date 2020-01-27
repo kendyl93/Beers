@@ -1,10 +1,6 @@
-import React from 'react'
-import classes from './SideDrawer.scss'
+import React from 'react';
+import './SideDrawer.scss';
 
-const sideDrawer = (props) => (
-	<div className={classes.SideDrawer}>
-		{props.children}
-	</div>
-)
+const sideDrawer = props => <div className="SideDrawer">{props.children}</div>;
 
-export default sideDrawer
+export default sideDrawer;

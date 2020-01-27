@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
-import Layout from './../Container/Layout/Layout';
-import BeerReviewer from './../Container/BeerReviewer/BeerReviewer';
-import classes from './App.scss';
-import WithClass from '../hoc/WithClass';
+
+import Layout from './Layout/Layout';
+import BeerReviewer from './BeerReviewer/BeerReviewer';
+import './App.scss';
 
 class App extends Component {
-
   state = {
     showModal: this.modal,
     modalContent: null,
     backdrop: false,
     props: {}
-  }
+  };
 
   modal = (modalContent = null, props = {}) => {
     this.setState({
       modalContent,
       props
-    })
-  }
+    });
+  };
 
   render() {
     return (
       <Layout>
-        <h1 className={classes["main-header"]}>
-          <span className={classes.beer}>BEER</span>
+        <h1 className="main-header">
+          <span className="beer">BEER</span>
           <span>GURU</span>
         </h1>
         <BeerReviewer />
@@ -33,4 +32,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;

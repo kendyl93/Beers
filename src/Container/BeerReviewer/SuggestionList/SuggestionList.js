@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import * as actionsCreator from '../../../store/actions/index';
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingSpinner from '../../../Components/UI/LoadingSpinner/LoadingSpinner';
-import classes from './SuggestionList.scss';
 import axios_beerApi from '../../../APIs/beerApi';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 
+import './SuggestionList.scss';
 class SuggestionList extends Component {
 	state = {
 		isItemFetching: false,
@@ -104,13 +104,13 @@ class SuggestionList extends Component {
 			const loading = isItemsLoading && (<LoadingSpinner />);
 		this.renderedBeers()
 		return (
-			<div className={classes.SuggestionList}>
-				<h4 className={classes.title}>With this beer people also like next:</h4>
+			<div className="SuggestionList">
+				<h4 className="title">With this beer people also like next:</h4>
 				{loading}
-				{!isItemsLoading && (<ul className={classes.list}>
+				{!isItemsLoading && (<ul className="list">
 					{items.map(item => (
 						<li
-							className={classes.item}
+							className="item"
 							key={item.id}
 						>
 							<Link
