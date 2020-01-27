@@ -1,22 +1,29 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-class ErrorBoundary extends Component {
-  state = {
-    hasError: false,
-    errorMessage: ''
-  };
+import ErrorView from './ErrorView';
 
-  componentDidCatch = (error, info) => {
-    this.setState({ hasError: true, errorMessage: error });
-  };
+class ErrorBoundary extends PureComponent {
+  state = { error: undefined };
+
+  componentDidCatch(error) {
+    this.setState({ error });
+  }
 
   render() {
-    if (this.state.hasError) {
-      return <h3>{this.state.errorMessage}</h3>;
+    const { error } = this.state;
+    const { children } = this.props;
+
+    if (error) {
+      return <ErrorView />;
     }
 
-    return this.props.children;
+    return children;
   }
 }
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
 export default ErrorBoundary;
