@@ -7,6 +7,7 @@ import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
 import { axios_beerApi, ENDPOINT } from '../../../api';
 import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
+import {getBeerDetails, getModalOpen} from '../../../store/actions/selectors'
 
 import './List.scss';
 
@@ -15,10 +16,10 @@ class List extends Component {
     items: [],
     page: null,
     beersPerPage: 20,
-    isInfiniteScrollON: true,
-    isLoadingContent: false,
-    isError: false,
-    isEndOfList: false
+    allowInfiniteScroll: true,
+    pending: false,
+    maybeError: false,
+    maybeEndOfListReached: false
   };
 
   nextBeersDownloader = async () => {
@@ -27,8 +28,8 @@ class List extends Component {
     let page = sourcePage + 1;
 
     this.setState({
-      isLoadingContent: true,
-      isError: false
+      pending: true,
+      maybeError: false
     });
 
     const query = `${ENDPOINT}?page=${page}&beersPerPage=${beersPerPage}`;
@@ -56,37 +57,47 @@ class List extends Component {
       const maybeEndOfList = data.length === 0;
       if (maybeEndOfList) {
         page--;
-        this.setState({ isEndOfList: true });
+        this.setState({ maybeEndOfListReached: true });
       }
       this.setState({
         items: storedItems,
         page,
-        isLoadingContent: false
+        pending: false
       });
     } catch (error) {
       console.error(error);
     }
   };
 
-  handleScroll = async e => {
-    const { isEndOfList } = this.state;
-    if (isEndOfList)
-      return window.removeEventListener('scroll', this.handleScroll);
-    const scrolled = window.innerHeight + window.scrollY;
-    const preBottom = window.document.body.offsetHeight;
-    const { items } = this.state;
-    const isAlreadyLoading = this.state.isLoadingContent;
-    console.log({ AAA: document.body.offsetHeight });
-    if (scrolled >= preBottom && items.length && !isAlreadyLoading)
-      await this.nextBeersDownloader();
+  handleScroll = e => {
+    const { maybeEndOfListReached, items, pending } = this.state;
+
+    if (maybeEndOfListReached) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    const { innerHeight, scrollY } = window;
+    const scrolled = innerHeight + scrollY;
+    const bodyOffsetHeight = window.document.body.offsetHeight;
+    const countItems = items.length;
+    const canBeLoadedMoreItems =
+      scrolled >= bodyOffsetHeight && countItems && !pending;
+
+    if (canBeLoadedMoreItems) {
+      this.nextBeersDownloader();
+    }
   };
 
   componentDidMount = () => {
-    const { isEndOfList, isInfiniteScrollON } = this.state;
-    console.log({ isInfiniteScrollON });
+    const { maybeEndOfListReached, allowInfiniteScroll } = this.state;
+
     this.nextBeersDownloader();
-    if (!isEndOfList && isInfiniteScrollON)
+
+    const canBeLoadedMrore = !maybeEndOfListReached && allowInfiniteScroll;
+
+    if (canBeLoadedMrore) {
       window.addEventListener('scroll', this.handleScroll);
+    }
   };
 
   componentWillUnmount = () => {
@@ -94,8 +105,11 @@ class List extends Component {
   };
 
   render() {
-    const { items, isLoadingContent, isError, isEndOfList } = this.state;
+    const { items, pending, maybeError, maybeEndOfListReached } = this.state;
+    const { openModalHandler, itemStoreHandler } = this.props;
+
     const errorMessage = <p>An error occured getting data</p>;
+
     const itemList = (
       <ul className="item-list">
         {items.map(item => (
@@ -103,9 +117,8 @@ class List extends Component {
             className="item"
             key={item.id}
             onClick={() => {
-              this.props.openModalHandler();
-              console.log(item, 'hello from sending item from list');
-              this.props.itemStoreHandler(item);
+              openModalHandler();
+              itemStoreHandler(item);
             }}
           >
             <Link to={`/beer/:${item.id}`}>
@@ -115,28 +128,26 @@ class List extends Component {
         ))}
       </ul>
     );
-    const listEnd = isEndOfList && <p>That's all beers</p>;
-    const loading = isLoadingContent && <LoadingOrError error={isError} />;
-    const content = !isError ? itemList : errorMessage;
-    if (!this.state.isInfiniteScrollON && this.props.isModalOpened)
-      window.removeEventListener('scroll', this.handleScroll);
-    // handling errors while fetching contents
+
+    const endOfListMessage = maybeEndOfListReached && <p>That's all beers</p>;
+    const loadingView = pending && <LoadingOrError error={maybeError} />;
+    const body = !maybeError ? itemList : errorMessage;
+
+
     return (
       <div className="List">
-        {content}
-        {loading}
-        {listEnd}
+        {body}
+        {loadingView}
+        {endOfListMessage}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    beerDetails: state.beerDetails.beer,
-    isModalOpened: state.modalWithDetails.isOpened
-  };
-};
+const mapStateToProps = (beerDetails, modalWithDetails) => ({
+    beerDetails: getBeerDetails(beerDetails),
+    isModalOpened: getModalOpen(modalWithDetails)
+  });
 
 const mapDispatchToProps = dispatch => {
   return {
