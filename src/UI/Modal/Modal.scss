@@ -18,9 +18,17 @@
   border: 2px solid #444;
   transform: translate(-50%, -50%);
   width: 80%;
-  height: 50%;
+  height: 80%;
+}
+
+.modal-body-inner {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
+}
+
+.modal-children-wrapper {
+  width: 100%;
 }

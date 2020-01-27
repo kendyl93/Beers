@@ -8,12 +8,12 @@ import './BeersList.scss';
 
 const BeersList = ({ beers }) => {
   return (
-    <div className="list-wrapper">
+    <div className="list-wrapper row-spacing">
       {beers ? (
         // eslint-disable-next-line camelcase
         beers.map(({ id, name, image_url: imageUrl }) => (
           <Link to={`/details/${id}`} className="item-wrapper" key={id}>
-            <img src={imageUrl} alt={name} width="auto" height="100px" />
+            <img src={imageUrl} alt={name} width="auto" height="200px" />
             {name}
           </Link>
         ))

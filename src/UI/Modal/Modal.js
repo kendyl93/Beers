@@ -7,8 +7,12 @@ import './Modal.scss';
 const Modal = ({ children }) => (
   <div className="modal-wrapper">
     <div className="modal-body">
-      {children}
-      <Link to="/">Close</Link>
+      <div className="modal-body-inner">
+        <div className="modal-children-wrapper">{children}</div>
+        <div>
+          <Link to="/">Close</Link>
+        </div>
+      </div>
     </div>
   </div>
 );

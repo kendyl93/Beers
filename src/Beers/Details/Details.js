@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import BeersList from '../Components/BeersList';
 
+import './Details.scss';
+
 const Details = ({
   similar,
   beer: {
@@ -29,7 +31,7 @@ const Details = ({
   console.log({ similar });
 
   return (
-    <div>
+    <div className="details-wrapper">
       <div>
         <div>
           name:

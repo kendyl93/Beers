@@ -17,16 +17,16 @@
     box-sizing: border-box;
 
     @media screen and (min-width: $small) {
-      margin: 5px;
-      flex: 0 1 calc(50% - 10px);
+      margin: 10px;
+      flex: 0 1 calc(50% - 20px);
     }
 
     @media screen and (min-width: $medium) {
-      flex: 0 1 calc(33.33% - 10px);
+      flex: 0 1 calc(33.33% - 20px);
     }
 
-    @media screen and (min-width: $large) {
-      flex: 0 1 calc(25% - 10px);
+    img {
+      padding: 16px 0;
     }
   }
 }
