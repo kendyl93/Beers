@@ -1,21 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as actionsCreator from '../../../store/actions/index';
+import { closeModal } from '../../../store/actions/index';
+import { getModalOpen } from '../../../store/actions/selectors';
 
 import './Backdrop.scss';
 
-const backdrop = props => {
-  if (props.isOpened) {
-    return <div className="Backdrop" onClick={props.onModalClose} />;
-  }
-};
+const backdrop = ({ isOpened, onModalClose }) =>
+  isOpened && <div className="Backdrop" onClick={onModalClose} />;
 
-const mapStateToProps = state => {
-  return { isOpened: state.modalWithDetails.isOpened };
-};
+const mapStateToProps = ({ modalWithDetails }) => ({
+  isOpened: getModalOpen(modalWithDetails)
+});
 
-const mapDispatchToProps = dispatch => {
-  return { onModalClose: () => dispatch(actionsCreator.closeModal()) };
-};
+const mapDispatchToProps = dispatch => ({
+  onModalClose: () => dispatch(closeModal())
+});
+
 export default connect(mapStateToProps, mapDispatchToProps)(backdrop);
