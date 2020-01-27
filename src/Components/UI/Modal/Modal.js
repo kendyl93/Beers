@@ -42,7 +42,7 @@ class modal extends Component {
 }
 
 const mapStateToProps = state => {
-  return { isOpened: state.modalDscrp.isOpened };
+  return { isOpened: state.modalWithDetails.isOpened };
 };
 
 const mapDispatchToProps = dispatch => {

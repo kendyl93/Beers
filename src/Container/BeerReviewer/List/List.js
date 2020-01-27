@@ -66,7 +66,7 @@ class List extends Component {
     const preBottom = window.document.body.offsetHeight;
     const { items } = this.state;
     const isAlreadyLoading = this.state.isLoadingContent;
-    console.log({ AAA: document.body.offsetHeight});
+    console.log({ AAA: document.body.offsetHeight });
     if (scrolled >= preBottom && items.length && !isAlreadyLoading)
       this.nextBeersDownloader();
   };
@@ -123,14 +123,14 @@ class List extends Component {
 
 const mapStateToProps = state => {
   return {
-    dscrpItem: state.dscrpItem.item,
-    isModalOpened: state.modalDscrp.isOpened
+    beerDetails: state.beerDetails.beer,
+    isModalOpened: state.modalWithDetails.isOpened
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    itemStoreHandler: item => dispatch(actionsCreator.passItem(item)),
+    itemStoreHandler: beer => dispatch(actionsCreator.getBeer(beer)),
     openModalHandler: () => dispatch(actionsCreator.openModal())
   };
 };

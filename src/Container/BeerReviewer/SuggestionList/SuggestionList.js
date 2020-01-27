@@ -132,13 +132,13 @@ class SuggestionList extends Component {
 
 const mapStateToProps = state => {
 	return {
-		passItem: state.dscrpItem.item
+		getBeer: state.beerDetails.beer
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		itemStoreHandler: (item) => dispatch(actionsCreator.passItem(item))
+		itemStoreHandler: (beer) => dispatch(actionsCreator.getBeer(beer))
 	}
 }
 

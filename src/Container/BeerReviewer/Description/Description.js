@@ -32,39 +32,40 @@ class Description extends Component {
   };
 
   // if item is undefined then read its id from location
-  item = beer => {
+  beer = beer => {
     beer = beer ? null : window.location.pathname.match(/[^/beer/:]\d*/)[0];
     if (!this.state.isLoading) {
-      this.setState({ isLoading: true });;
+      this.setState({ isLoading: true });
     }
     if (typeof beer === 'string') {
       // otherwise the beer is specified and must be fetched
-      this.singleBeerHandler(beer);;
+      this.singleBeerHandler(beer);
     }
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.item !== this.props.item || this.state.isLoading;;
+    return nextProps.beer !== this.props.beer || this.state.isLoading;;
   }
 
   componentDidMount = () => {
     // here is it checks has the beer been preloaded or not
-    const beer = this.props.item;
+    const beer = this.props.beer;
     if (Object.keys(beer).length !== 0 && beer.constructor === Object) return;
-    this.item();;
+    this.item();
   };
 
   render() {
+    console.log({aa: this.props})
     const {
-        image_url,
-        name,
-        tagline,
-        ibu,
-        abv,
-        ebc,
-        description,
-        food_pairing
-      } = this.props.item;
+      image_url,
+      name,
+      tagline,
+      ibu,
+      abv,
+      ebc,
+      description,
+      food_pairing
+    } = this.props.beer || {};
 			//test what is a kind of image cover for bottle or keg
 			const image = !(/keg\.png/i.test(image_url));
 			const loadingSpinner = this.state.isLoading && (<div className="spinner-cover"><LoadingSpinner /></div>);
@@ -125,16 +126,16 @@ return (
 
 const mapStateToProps = state => {
   return {
-    item: state.dscrpItem.item,
-    modalDscrp: state.modalDscrp.isOpened
-  };;
+    beer: state.beerDetails.beer,
+    modalWithDetails: state.modalWithDetails.isOpened
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getItemHandler: item => dispatch(actionsCreator.passItem(item)),
+    getItemHandler: beer => dispatch(actionsCreator.getBeer(beer)),
     onModalOpen: () => dispatch(actionsCreator.openModal())
-  };;
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Description);

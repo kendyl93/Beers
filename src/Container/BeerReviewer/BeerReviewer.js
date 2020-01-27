@@ -43,7 +43,7 @@ class BeerReviewer extends Component {
 
 const mapStateToProps = state => {
   return {
-    isModalOpened: state.modalDscrp.isOpened
+    isModalOpened: state.modalWithDetails.isOpened
   };
 };
 

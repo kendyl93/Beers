@@ -1,2 +1,2 @@
-export { passItem } from './detailsActions';
+export { getBeer } from './detailsActions';
 export { openModal, closeModal } from './modalActions';

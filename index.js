@@ -8,15 +8,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 import App from './src/Container/App';
 import './index.scss';
-import descriptionReducer from './src/store/reducers/descriptionReducer';
+import detailsReducer from './src/store/reducers/detailsReducer';
 import modalReducer from './src/store/reducers/modalReducer';
 
 const rootReducer = combineReducers({
-  dscrpItem: descriptionReducer,
-  modalDscrp: modalReducer
+  beerDetails: detailsReducer,
+  modalWithDetails: modalReducer
 });
-
-const initialState = {};
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 

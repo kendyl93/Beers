@@ -11,7 +11,7 @@ const description = props => {
     ebc,
     description,
     food_pairing
-  } = props.state.item;
+  } = props.state.beer;
   // test what is a kind of image cover for bottle or keg
   const image = !/keg\.png/i.test(image_url);
   // 	const imageContainer =
