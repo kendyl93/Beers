@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { axios_beerApi } from '../../../api';
+import { axios_beerApi, ENDPOINT } from '../../../api';
 import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
 
@@ -14,51 +14,61 @@ class List extends Component {
   state = {
     items: [],
     page: null,
-    per_page: 20,
+    beersPerPage: 20,
     isInfiniteScrollON: true,
     isLoadingContent: false,
     isError: false,
     isEndOfList: false
   };
 
-  nextBeersDownloader = () => {
-    const { per_page } = this.state;
-    let storedItems = [...this.state.items];
-    let page = this.state.page + 1;
+  nextBeersDownloader = async () => {
+    const { beersPerPage, items, page: sourcePage } = this.state;
+    let storedItems = [...items];
+    let page = sourcePage + 1;
+
     this.setState({
       isLoadingContent: true,
       isError: false
     });
-    const api = 'https://api.punkapi.com/v2/beers';
-    const query = `${api}?page=${page}&per_page=${per_page}`;
-    axios_beerApi
-      .get(query)
-      .then(res => {
-        console.log(res);
-        if (statusHandler(res)) throw statusHandler(res);
 
-        return res.data;
-      })
-      .then(data => {
-        return data;
-      })
-      .then(items => {
-        if (itemErrorChecker(items)) return;
-        if (items.length !== 0) storedItems = storedItems.concat(items);
-        // if the queries reached the end of list
-        if (items.length === 0) {
-          page--;
-          this.setState({ isEndOfList: true });
-        }
-        this.setState({
-          items: storedItems,
-          page,
-          isLoadingContent: false
-        });
+    const query = `${ENDPOINT}?page=${page}&beersPerPage=${beersPerPage}`;
+
+    try {
+      const response = await axios_beerApi.get(query);
+
+      const maybeError = statusHandler(response);
+      if (maybeError) {
+        throw statusHandler(response);
+      }
+
+      const { data } = response;
+
+      const dataExist = itemErrorChecker(data);
+      if (dataExist) {
+        return;
+      }
+
+      const anyData = data.length !== 0;
+      if (anyData) {
+        storedItems = [...storedItems, ...data];
+      }
+
+      const maybeEndOfList = data.length === 0;
+      if (maybeEndOfList) {
+        page--;
+        this.setState({ isEndOfList: true });
+      }
+      this.setState({
+        items: storedItems,
+        page,
+        isLoadingContent: false
       });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  handleScroll = e => {
+  handleScroll = async e => {
     const { isEndOfList } = this.state;
     if (isEndOfList)
       return window.removeEventListener('scroll', this.handleScroll);
@@ -68,7 +78,7 @@ class List extends Component {
     const isAlreadyLoading = this.state.isLoadingContent;
     console.log({ AAA: document.body.offsetHeight });
     if (scrolled >= preBottom && items.length && !isAlreadyLoading)
-      this.nextBeersDownloader();
+      await this.nextBeersDownloader();
   };
 
   componentDidMount = () => {

@@ -10,6 +10,7 @@ import {axios_beerApi} from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 
 import './SuggestionList.scss';
+
 class SuggestionList extends Component {
 	state = {
 		isItemFetching: false,
@@ -20,6 +21,7 @@ class SuggestionList extends Component {
 		items: [],
 		loadingItem: null
 	}
+	
 	//download random items
 	randomItem = (index) => {
 		//we provide index to know a place to put a new item
