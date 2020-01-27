@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import * as actionsCreator from '../../../store/actions/index';
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
-import LoadingSpinner from '../../../Components/UI/LoadingSpinner/LoadingSpinner';
+import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
 import {axios_beerApi} from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 
@@ -100,8 +100,8 @@ class SuggestionList extends Component {
 	render() {
 		const {
 			isItemsLoading,
-			items } = this.state;
-			const loading = isItemsLoading && (<LoadingSpinner />);
+			items, isError } = this.state;
+		const loading = isItemsLoading && (<LoadingOrError error={isError}/>);
 		this.renderedBeers()
 		return (
 			<div className="SuggestionList">

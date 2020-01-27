@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import LoadingSpinner from '../../../Components/UI/LoadingSpinner/LoadingSpinner';
+import LoadingOrError from '../../ErrorBoundary/LoadingOrError';;
 import {axios_beerApi} from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
@@ -66,9 +66,10 @@ class Description extends Component {
       description,
       food_pairing
     } = this.props.beer || {};
+    const { isError } = this.state;
 			//test what is a kind of image cover for bottle or keg
 			const image = !(/keg\.png/i.test(image_url));
-			const loadingSpinner = this.state.isLoading && (<div className="spinner-cover"><LoadingSpinner /></div>);
+    const loadingSpinner = this.state.isLoading && (<div className="spinner-cover"><LoadingOrError error={isError}/></div>);
 			const imageContainer = (
         <div
 					className={image ? 'bottle-cover' : 'keg-cover'}

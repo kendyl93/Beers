@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
-import LoadingSpinner from '../../../Components/UI/LoadingSpinner/LoadingSpinner';
-import {axios_beerApi} from '../../../api';
+import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
+import { axios_beerApi } from '../../../api';
 import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
 
@@ -106,7 +106,7 @@ class List extends Component {
       </ul>
     );
     const listEnd = isEndOfList && <p>That's all beers</p>;
-    const loading = isLoadingContent && <LoadingSpinner />;
+    const loading = isLoadingContent && <LoadingOrError error={isError} />;
     const content = !isError ? itemList : errorMessage;
     if (!this.state.isInfiniteScrollON && this.props.isModalOpened)
       window.removeEventListener('scroll', this.handleScroll);
