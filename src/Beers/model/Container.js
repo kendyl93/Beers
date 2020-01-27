@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 
 import fetchBeers from './fetchBeers';
 import { getBeersError, getBeers, getBeersPending } from './selectors';
-import { addPage } from '../Pagination/actions';
 import { getPage } from '../Pagination/selectors';
 import Beers from '../Components/Beers';
 
@@ -15,6 +14,6 @@ const mapStateToProps = ({ beersReducer, paginationReducer }) => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchBeers, addPage }, dispatch);
+  bindActionCreators({ fetchBeers }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Beers);

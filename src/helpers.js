@@ -29,3 +29,10 @@ export const averagedStandardDeviation = data => {
 
   return roundedStandardDeviation;
 };
+
+export const mergeBeers = state => action => {
+  const { beers: sourceBeers } = state || {};
+  const { beers } = action || {};
+
+  return [...sourceBeers, ...beers];
+};

@@ -6,7 +6,8 @@ import ErrorBoundary from '../../UI/Error/ErrorBoundary';
 import LoadingOrError from '../../UI/LoadingOrError';
 
 const Beers = ({ fetchBeers, pending, error, beers, page }) => {
-  const maybeBeersFetched = !pending && beers;
+  const anyBears = beers.length > 0;
+  const maybeBeersFetched = !pending && anyBears;
 
   useEffect(() => {
     if (maybeBeersFetched || error) {
@@ -14,7 +15,11 @@ const Beers = ({ fetchBeers, pending, error, beers, page }) => {
     }
 
     try {
-      // fetchBeers();
+      const maybeFirstPage = page === 1;
+
+      if (maybeFirstPage && !pending) {
+        fetchBeers(page);
+      }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
@@ -25,6 +30,7 @@ const Beers = ({ fetchBeers, pending, error, beers, page }) => {
     <div>
       <BeersList beers={beers} />
       <button
+        type="button"
         onClick={() => {
           fetchBeers(page);
         }}
@@ -40,7 +46,7 @@ const Beers = ({ fetchBeers, pending, error, beers, page }) => {
 };
 
 Beers.propTypes = {
-  error: PropTypes.bool,
+  error: PropTypes.string,
   pending: PropTypes.bool,
   beers: PropTypes.array,
   fetchBeers: PropTypes.func,

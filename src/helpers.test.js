@@ -3,7 +3,8 @@ import {
   ascending,
   average,
   averagedStandardDeviation,
-  calculateDifference
+  calculateDifference,
+  mergeBeers
 } from './helpers';
 
 describe('helpers', () => {
@@ -87,5 +88,31 @@ describe('helpers', () => {
     const sortedData = sourceData.sort(ascending(byIndexNo));
 
     expect(sortedData).toEqual(expectedData);
+  });
+
+  it('should merge beers from state and action', () => {
+    const state = { beers: [{ id: 1, ibv: 25, abv: 25, ebc: 25 }] };
+    const action = {
+      beers: [
+        { id: 2, ibv: 25, abv: 24, ebc: 24 },
+        { id: 3, ibv: 23, abv: 25, ebc: 25 },
+        { id: 4, ibv: 23, abv: 25, ebc: 30 },
+        { id: 5, ibv: 80, abv: 25, ebc: 4 },
+        { id: 6, ibv: 60, abv: 65, ebc: 0 }
+      ]
+    };
+
+    const expectedState = [
+      { id: 1, ibv: 25, abv: 25, ebc: 25 },
+      { id: 2, ibv: 25, abv: 24, ebc: 24 },
+      { id: 3, ibv: 23, abv: 25, ebc: 25 },
+      { id: 4, ibv: 23, abv: 25, ebc: 30 },
+      { id: 5, ibv: 80, abv: 25, ebc: 4 },
+      { id: 6, ibv: 60, abv: 65, ebc: 0 }
+    ];
+
+    const mergedBeers = mergeBeers(state)(action);
+
+    expect(mergedBeers).toEqual(expectedState);
   });
 });

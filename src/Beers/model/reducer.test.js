@@ -6,41 +6,37 @@ import {
   FETCH_BEERS_PENDING
 } from './types';
 
+const initialState = { beers: [], error: '', pending: false };
+
 describe('reducer', () => {
   it('should return the initial state', () => {
     const state = undefined;
     const action = {};
 
-    expect(beersReducer(state, action)).toEqual({});
+    expect(beersReducer(state, action)).toEqual(initialState);
   });
 
   it('should handle FETCH_BEERS_SUCCESS', () => {
-    const state = {};
     const successAction = {
-      type: FETCH_BEERS_SUCCESS
+      type: FETCH_BEERS_SUCCESS,
+      beers: []
     };
-
-    const expected = {
-      pending: false,
-      beers: undefined
-    };
-
-    expect(beersReducer(state, successAction)).toEqual(expected);
+    expect(beersReducer(initialState, successAction)).toEqual(initialState);
   });
 
   it('should handle FETCH_BEERS_ERROR', () => {
-    const state = {};
     const errorAction = {
       type: FETCH_BEERS_ERROR,
       error: 'ERROR'
     };
 
     const expected = {
-      pending: false,
-      error: 'ERROR'
+      beers: [],
+      error: 'ERROR',
+      pending: false
     };
 
-    expect(beersReducer(state, errorAction)).toEqual(expected);
+    expect(beersReducer(initialState, errorAction)).toEqual(expected);
   });
 
   it('should handle FETCH_BEERS_PENDING', () => {
@@ -62,7 +58,7 @@ describe('selectors', () => {
     const state = {
       beers: { milk: 'milk', soup: 'soup' },
       pending: true,
-      error: false
+      error: 'ERROR'
     };
 
     expect(getBeers(state)).toEqual({ milk: 'milk', soup: 'soup' });
@@ -72,7 +68,7 @@ describe('selectors', () => {
     const state = {
       beers: { milk: 'milk', soup: 'soup' },
       pending: true,
-      error: false
+      error: 'ERROR'
     };
 
     expect(getBeersPending(state)).toEqual(true);
@@ -82,9 +78,9 @@ describe('selectors', () => {
     const state = {
       beers: { milk: 'milk', soup: 'soup' },
       pending: true,
-      error: false
+      error: 'ERROR'
     };
 
-    expect(getBeersError(state)).toEqual(false);
+    expect(getBeersError(state)).toEqual('ERROR');
   });
 });

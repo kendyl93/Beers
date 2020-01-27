@@ -3,8 +3,11 @@ import {
   FETCH_BEERS_SUCCESS,
   FETCH_BEERS_ERROR
 } from './types';
+import { mergeBeers } from '../../helpers';
 
-export const beersReducer = (state = { beers: [] }, action) => {
+const initialState = { beers: [], pending: false, error: '' };
+
+export const beersReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BEERS_PENDING:
       return {
@@ -15,7 +18,7 @@ export const beersReducer = (state = { beers: [] }, action) => {
       return {
         ...state,
         pending: false,
-        beers: [...state.beers, ...action.beers]
+        beers: mergeBeers(state)(action)
       };
     case FETCH_BEERS_ERROR:
       return {

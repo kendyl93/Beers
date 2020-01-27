@@ -7,7 +7,7 @@ import ErrorView from './Error/ErrorView';
 const LoadingOrError = ({ error }) => (error ? <ErrorView /> : <Spinner />);
 
 LoadingOrError.propTypes = {
-  error: PropTypes.object
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 
 export default LoadingOrError;
