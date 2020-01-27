@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import LoadingSpinner from '../../../Components/UI/LoadingSpinner/LoadingSpinner';
-import axios_beerApi from '../../../APIs/beerApi';
+import {axios_beerApi} from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingSpinner from '../../../Components/UI/LoadingSpinner/LoadingSpinner';
-import axios_beerApi from '../../../APIs/beerApi';
+import {axios_beerApi} from '../../../api';
 import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
 
