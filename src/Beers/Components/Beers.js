@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash.debounce';
 
 import BeersList from './BeersList';
 import ErrorBoundary from '../../UI/Error/ErrorBoundary';
@@ -19,11 +20,7 @@ const Beers = ({
   const maybeBeersFetched = !pending && anyBears;
 
   useEffect(() => {
-    if (loading) {
-      return;
-    }
-    console.log({ moreBeers });
-    if (maybeBeersFetched || error) {
+    if (maybeBeersFetched || error || loading) {
       return;
     }
 
@@ -31,25 +28,30 @@ const Beers = ({
       const maybeFirstPage = page === 1;
 
       if (maybeFirstPage && !pending) {
-        fetchBeers(page);
+        fetchBeers();
       }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
     }
   });
+  const withMoreLoaded = [...beers, ...moreBeers];
 
   const view = maybeBeersFetched ? (
     <div>
-      <BeersList beers={[...beers, ...moreBeers]} />
-      <button
-        type="button"
-        onClick={() => {
-          loadMoreBeers(page);
-        }}
-      >
-        LOAD MORE
-      </button>
+      <BeersList beers={withMoreLoaded} />
+      {loading ? (
+        <LoadingOrError error={error} />
+      ) : (
+        <button
+          type="button"
+          onClick={() => {
+            loadMoreBeers(page);
+          }}
+        >
+          LOAD MORE
+        </button>
+      )}
     </div>
   ) : (
     <LoadingOrError error={error} />
@@ -62,8 +64,11 @@ Beers.propTypes = {
   error: PropTypes.string,
   pending: PropTypes.bool,
   beers: PropTypes.array,
+  moreBeers: PropTypes.array,
   fetchBeers: PropTypes.func,
-  page: PropTypes.number
+  loadMoreBeers: PropTypes.func,
+  page: PropTypes.number,
+  loading: PropTypes.bool
 };
 
 export default Beers;
