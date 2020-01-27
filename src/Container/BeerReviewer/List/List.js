@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { axios_beerApi, ENDPOINT } from '../../../api';
+import { axiosBeerApi, ENDPOINT } from '../../../api';
 import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
-import * as actionsCreator from '../../../store/actions/index';
-import {getBeerDetails, getModalOpen} from '../../../store/actions/selectors'
+import { getBeer, openModal } from '../../../store/actions/index';
+import { getBeerDetails, getModalOpen } from '../../../store/actions/selectors';
 
 import './List.scss';
 
@@ -25,7 +26,7 @@ class List extends Component {
   nextBeersDownloader = async () => {
     const { beersPerPage, items, page: sourcePage } = this.state;
     let storedItems = [...items];
-    let page = sourcePage + 1;
+    const page = sourcePage + 1;
 
     this.setState({
       pending: true,
@@ -35,7 +36,7 @@ class List extends Component {
     const query = `${ENDPOINT}?page=${page}&beersPerPage=${beersPerPage}`;
 
     try {
-      const response = await axios_beerApi.get(query);
+      const response = await axiosBeerApi.get(query);
 
       const maybeError = statusHandler(response);
       if (maybeError) {
@@ -56,7 +57,7 @@ class List extends Component {
 
       const maybeEndOfList = data.length === 0;
       if (maybeEndOfList) {
-        page--;
+        page - 1;
         this.setState({ maybeEndOfListReached: true });
       }
       this.setState({
@@ -65,6 +66,7 @@ class List extends Component {
         pending: false
       });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
@@ -106,7 +108,7 @@ class List extends Component {
 
   render() {
     const { items, pending, maybeError, maybeEndOfListReached } = this.state;
-    const { openModalHandler, itemStoreHandler } = this.props;
+    const { openModalHandler, beersStoreHandler } = this.props;
 
     const errorMessage = <p>An error occured getting data</p>;
 
@@ -118,7 +120,7 @@ class List extends Component {
             key={item.id}
             onClick={() => {
               openModalHandler();
-              itemStoreHandler(item);
+              beersStoreHandler(item);
             }}
           >
             <Link to={`/beer/:${item.id}`}>
@@ -129,10 +131,9 @@ class List extends Component {
       </ul>
     );
 
-    const endOfListMessage = maybeEndOfListReached && <p>That's all beers</p>;
+    const endOfListMessage = maybeEndOfListReached && <p>THE END</p>;
     const loadingView = pending && <LoadingOrError error={maybeError} />;
     const body = !maybeError ? itemList : errorMessage;
-
 
     return (
       <div className="List">
@@ -144,16 +145,19 @@ class List extends Component {
   }
 }
 
-const mapStateToProps = (beerDetails, modalWithDetails) => ({
-    beerDetails: getBeerDetails(beerDetails),
-    isModalOpened: getModalOpen(modalWithDetails)
-  });
-
-const mapDispatchToProps = dispatch => {
-  return {
-    itemStoreHandler: beer => dispatch(actionsCreator.getBeer(beer)),
-    openModalHandler: () => dispatch(actionsCreator.openModal())
-  };
+List.propTypes = {
+  openModalHandler: PropTypes.func,
+  beersStoreHandler: PropTypes.func
 };
+
+const mapStateToProps = (beerDetails, modalWithDetails) => ({
+  beerDetails: getBeerDetails(beerDetails),
+  isModalOpened: getModalOpen(modalWithDetails)
+});
+
+const mapDispatchToProps = dispatch => ({
+  beersStoreHandler: beer => dispatch(getBeer(beer)),
+  openModalHandler: () => dispatch(openModal())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

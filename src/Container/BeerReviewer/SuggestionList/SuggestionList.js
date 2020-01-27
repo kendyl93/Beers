@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as actionsCreator from '../../../store/actions/index';
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import {axios_beerApi} from '../../../api';
+import {axiosBeerApi} from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 
 import './SuggestionList.scss';
@@ -21,7 +21,7 @@ class SuggestionList extends Component {
 		items: [],
 		loadingItem: null
 	}
-	
+
 	//download random items
 	randomItem = (index) => {
 		//we provide index to know a place to put a new item
@@ -31,7 +31,7 @@ class SuggestionList extends Component {
 		},
 			() => {
 				const query = '/random';
-				axios_beerApi.get(query)
+				axiosBeerApi.get(query)
 					.then(res => {
 						if (statusHandler(res)) throw statusHandler(res);
 						return res.data.shift()

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';;
-import {axios_beerApi} from '../../../api';
+import {axiosBeerApi} from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import * as actionsCreator from '../../../store/actions/index';
 
@@ -17,7 +17,7 @@ class Description extends Component {
   singleBeerHandler = itemID => {
     this.setState({ isError: false });;
     const query = `/${itemID}`;
-    axios_beerApi
+    axiosBeerApi
       .get(query)
       .then(res => {
         if (statusHandler(res)) throw statusHandler(res);
