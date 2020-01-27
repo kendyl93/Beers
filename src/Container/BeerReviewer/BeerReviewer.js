@@ -26,7 +26,8 @@ class BeerReviewer extends Component {
     }
   };
 
-  componentWillMount() {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillMount() {
     this.locationHandler();
   }
 
