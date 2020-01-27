@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.App {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.App a {
+	text-decoration: none;
+	color:#333;
+}
+
+.App .main-header {
+	font-weight: 700;
+	margin-left: 20px;
+	color: #606060;
+}
+
+.App .main-header .beer {
+	color: #fd8e04;
+	
+}
+
+.App .overlay {
+	display: none;
+	position: fixed;
+	z-index: 9999;
+	background-color: rgba(0,0,0,0.8);
+	animation-duration: 0.4s;
+}
+
+.App .overlay .open {
+	display: block;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+@media only screen and (min-width: 1001px) {
+.App {
+		width: 900px;
+	}
+}

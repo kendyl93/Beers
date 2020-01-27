@@ -1,0 +1,126 @@
+
+.Description {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	background-color: #fff;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 0.9em;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.Description .bottle-cover {
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.Description .keg-cover {
+	margin-top: 1.17em;
+	background-size: 70%;
+	background-repeat: no-repeat;
+
+}
+
+.Description .text-container {
+	display: flex;
+	flex-flow: column;
+	color:#a4a4a4;
+}
+
+.Description .text-container .title{
+	margin-bottom: 0.5em;
+	color:#333
+}
+
+.Description .feature-container {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.Description .features-name {
+	padding-right: 10px;
+}
+
+.Description .features-name strong {
+	font-weight: 600;
+	color:#333
+}
+
+.Description .feature-container,
+.Description .description{
+	padding-top: 20px;
+}
+
+.Description .pairing-list p { 
+	font-weight: 600;
+	margin-bottom: 10px;
+	color:#333
+}
+
+.Description .spinner-cover {
+	width: 150px;
+	height: 350px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.Description .pairing-list .pairing-list {
+	text-indent: 10px;
+}
+
+.Description .pairing-list li:before {
+	content: '- ';
+}
+
+@media only screen and (min-width: 1001px) {
+
+	.Description {
+		width: 700px;
+	}
+
+	.Description .text-container {
+		width: 400px;		
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+	
+	.Description {
+		/* flex-basis: 40%;
+		flex-shrink: 0.5; */
+		flex-flow: column;
+		align-items: center;
+		padding: 0 20px;
+		height: 100%;
+	}
+
+	.Description .bottle-cover {
+		height: 250px !important;
+		background-size: 30%;
+	}
+
+	.Description .keg-cover {
+		background-position: center;
+		height: 250px !important;
+		background-size: 60%;
+	}
+
+	.Description .text-container {
+		margin: 0 20px auto 20px;
+		width: 100%;
+	}
+}
+@media only screen and (max-width: 600px) {
+
+	.Description {
+		border-radius: 0;
+		width: calc(100%-40px);
+		height: 100%;
+		margin-left: 0;
+	}
+}

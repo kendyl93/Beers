@@ -1,0 +1,22 @@
+
+.Page {
+	align-items: center;
+	flex-flow: column;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+}
+
+@media only screen and (max-width: 1000px) {
+	.Page {
+		flex-flow: row nowrap;
+		justify-content: unset;
+		align-items: stretch;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.Page {
+		flex-flow: column;
+	}
+}

@@ -1,0 +1,20 @@
+.closeButton {
+	position: absolute;
+	top: 20px;
+	right: 0;
+}
+
+.closeButton:active,
+.closeButton:checked {
+	color: #444;	
+}
+
+.closeButton:hover {
+	background-color: rgb(249, 255, 217);
+}
+
+.mobile-closeButton {
+	top: auto;
+	bottom: 20px;
+	right: 20px;
+}

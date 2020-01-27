@@ -1,0 +1,17 @@
+
+.List {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.List .item-list { 
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+}
+
+.List .item {
+	margin-bottom: 40px;
+}

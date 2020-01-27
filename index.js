@@ -1,29 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import PropTypes from 'prop-types';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 
-import configureStore from './src/model/store';
-import WithModal from './src/Router/Routes';
-
+import App from './src/Container/App';
 import './index.scss';
+import descriptionReducer from './src/store/reducers/descriptionReducer';
+import modalReducer from './src/store/reducers/modalReducer';
 
-const store = configureStore();
+const rootReducer = combineReducers({
+  dscrpItem: descriptionReducer,
+  modalDscrp: modalReducer
+});
 
-const WithProvider = ({ store }) => {
-  return (
-    <Provider store={store}>
-      <Router>
-        <WithModal />
-      </Router>
-    </Provider>
-  );
-};
+const initialState = {};
 
-WithProvider.propTypes = {
-  store: PropTypes.object
-};
+const store = createStore(
+  rootReducer,
+  initialState,
+  applyMiddleware(logger, thunk)
+);
 
-const rootElement = document.getElementById('root');
-ReactDOM.render(<WithProvider store={store} />, rootElement);
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+);
