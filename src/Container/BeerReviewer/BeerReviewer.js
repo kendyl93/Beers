@@ -1,11 +1,12 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import * as actionsCreator from '../../store/actions/index';
+import { openModal } from '../../store/actions/index';
 import Page from './Page/Page';
 import List from './List/List';
 import Modal from '../../Components/UI/Modal/Modal';
+import { getModalOpen } from '../../store/actions/selectors';
 
 class BeerReviewer extends Component {
   state = {
@@ -33,22 +34,24 @@ class BeerReviewer extends Component {
     return (
       <>
         <Modal>
-          <Route path="/beer/" render={props => <Page {...props} />} />
+          <Route path="/beer/">
+            <Page />
+          </Route>
         </Modal>
-        <Route path="/" render={props => <List {...props} />} />
+        <Route path="/">
+          <List />
+        </Route>
       </>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isModalOpened: state.modalWithDetails.isOpened
-  };
-};
+const mapStateToProps = ({ modalWithDetails }) => ({
+  isModalOpened: getModalOpen(modalWithDetails)
+});
 
-const mapDispatchToProps = dispatch => {
-  return { onModalOpen: () => dispatch(actionsCreator.openModal()) };
-};
+const mapDispatchToProps = dispatch => ({
+  onModalOpen: () => dispatch(openModal())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(BeerReviewer);
