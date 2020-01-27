@@ -22,6 +22,6 @@ const mapStateToProps = ({ beersReducer, paginationReducer }) => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchBeers, loadMoreBeers }, dispatch);
+  bindActionCreators({ fetchBeers }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Beers);

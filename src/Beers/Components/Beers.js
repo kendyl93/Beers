@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash.debounce';
 
 import BeersList from './BeersList';
 import ErrorBoundary from '../../UI/Error/ErrorBoundary';
@@ -18,6 +17,7 @@ const Beers = ({
 }) => {
   const anyBears = beers.length > 0;
   const maybeBeersFetched = !pending && anyBears;
+  const beersWrapper = useRef(null);
 
   useEffect(() => {
     if (maybeBeersFetched || error || loading) {
@@ -35,20 +35,26 @@ const Beers = ({
       console.error(error);
     }
   });
+
+  const loadMoreContent = async () => {
+    await fetchBeers(page);
+
+    const { current: { offsetHeight } = {} } = beersWrapper || {};
+    
+    if (offsetHeight) {
+      window.scrollTo(0, offsetHeight);
+    }
+  };
+
   const withMoreLoaded = [...beers, ...moreBeers];
 
   const view = maybeBeersFetched ? (
-    <div>
+    <div ref={beersWrapper}>
       <BeersList beers={withMoreLoaded} />
       {loading ? (
         <LoadingOrError error={error} />
       ) : (
-        <button
-          type="button"
-          onClick={() => {
-            loadMoreBeers(page);
-          }}
-        >
+        <button type="button" onClick={loadMoreContent}>
           LOAD MORE
         </button>
       )}
