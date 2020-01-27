@@ -13,3 +13,14 @@ body {
 .col-spacing > *:not(:last-child) {
   margin-right: 12px;
 }
+
+h1,
+h2,
+h3 {
+  font-weight: normal;
+}
+
+h1 {
+  font-size: $baseFontSize * 3;
+  margin: $baseFontSize 0 $baseFontSize * 2;
+}

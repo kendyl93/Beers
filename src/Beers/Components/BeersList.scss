@@ -5,12 +5,14 @@
   flex-wrap: wrap;
 
   .item-wrapper {
+    @include boxShadow;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    border: solid 2px blue;
+    background: white;
+    border-radius: 16px;
     padding: 32px 8px;
     box-sizing: border-box;
 
