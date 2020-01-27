@@ -1,5 +1,6 @@
 body {
-  background: $grey;
+  background: $gray;
+  color: $darkGray;
 }
 
 .row-spacing > *:not(:last-child) {
@@ -23,4 +24,14 @@ h3 {
 h1 {
   font-size: $baseFontSize * 3;
   margin: $baseFontSize 0 $baseFontSize * 2;
+}
+
+h4 {
+  font-size: $baseFontSize * 1.2;
+  margin: $baseFontSize 0;
+}
+
+a {
+  text-decoration: none;
+  color: $greenNetGuru;
 }
