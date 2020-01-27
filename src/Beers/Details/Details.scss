@@ -5,4 +5,23 @@
   flex-direction: column;
   flex-grow: 1;
   width: inherit;
+  height: 100%;
+}
+
+.details-body {
+  display: flex;
+  flex-grow: 1;
+}
+
+.similar-beers-wraper {
+  .list-wrapper {
+    width: 80%;
+    margin: 0 auto;
+
+    a {
+      img {
+        max-height: 100px;
+      }
+    }
+  }
 }

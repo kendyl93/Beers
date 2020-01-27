@@ -9,50 +9,38 @@ const Details = ({
   similar,
   beer: {
     name,
-    id,
     tagline,
     description,
     image_url: imagUrl,
     abv,
     ibu,
-    target_fg: targetFg,
-    target_og: targetOg,
     ebc,
-    srm,
-    ph,
-    attenuation_level: attenuationLevel,
-    ingredients,
-    food_pairing: foodPairing,
-    volume,
-    boilVolume,
-    method
+    food_pairing: foodPairing
   }
 }) => {
-  console.log({ similar });
-
   return (
     <div className="details-wrapper">
-      <div>
+      <div className="details-body">
         <div>
-          name:
-          {name}
-        </div>
-        <div>
-          id:
-          {id}
-        </div>
-
-        <div>
-          tagline:
-          {tagline}
-        </div>
-
-        <div>
-          imagUrl:
           <img src={imagUrl} alt={name} height="100px" width="auto" />
         </div>
+        <div>
+          <h2>{name}</h2>
+          <div>{tagline}</div>
+          <div>
+            <div>{ibu}</div>
+            <div>{abv}</div>
+            <div>{ebc}</div>
+          </div>
+          <div>{description}</div>
+          {foodPairing.map(food => (
+            <div>{food}</div>
+          ))}
+        </div>
       </div>
-      <BeersList beers={similar} />
+      <div className="similar-beers-wraper">
+        <BeersList beers={similar} />
+      </div>
     </div>
   );
 };
@@ -61,21 +49,12 @@ Details.propTypes = {
   similar: PropTypes.array,
   beer: PropTypes.object,
   name: PropTypes.string,
-  id: PropTypes.string,
   tagline: PropTypes.string,
   description: PropTypes.string,
   image_url: PropTypes.string,
   abv: PropTypes.number,
   ibu: PropTypes.number,
-  targetFg: PropTypes.number,
-  targetOg: PropTypes.number,
   ebc: PropTypes.number,
-  srm: PropTypes.number,
-  ph: PropTypes.number,
-  attenuationLevel: PropTypes.number,
-  volume: PropTypes.object,
-  boilVolume: PropTypes.object,
-  methodingredients: PropTypes.object,
   foodPairing: PropTypes.array
 };
 
