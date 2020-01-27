@@ -5,22 +5,13 @@ import BeersList from './BeersList';
 import ErrorBoundary from '../../UI/Error/ErrorBoundary';
 import LoadingOrError from '../../UI/LoadingOrError';
 
-const Beers = ({
-  fetchBeers,
-  loadMoreBeers,
-  pending,
-  error,
-  beers,
-  moreBeers,
-  page,
-  loading
-}) => {
+const Beers = ({ fetchBeers, pending, error, beers, page }) => {
   const anyBears = beers.length > 0;
   const maybeBeersFetched = !pending && anyBears;
   const beersWrapper = useRef(null);
 
   useEffect(() => {
-    if (maybeBeersFetched || error || loading) {
+    if (maybeBeersFetched || error) {
       return;
     }
 
@@ -40,18 +31,16 @@ const Beers = ({
     await fetchBeers(page);
 
     const { current: { offsetHeight } = {} } = beersWrapper || {};
-    
+
     if (offsetHeight) {
       window.scrollTo(0, offsetHeight);
     }
   };
 
-  const withMoreLoaded = [...beers, ...moreBeers];
-
   const view = maybeBeersFetched ? (
     <div ref={beersWrapper}>
-      <BeersList beers={withMoreLoaded} />
-      {loading ? (
+      <BeersList beers={beers} />
+      {pending ? (
         <LoadingOrError error={error} />
       ) : (
         <button type="button" onClick={loadMoreContent}>
@@ -70,11 +59,8 @@ Beers.propTypes = {
   error: PropTypes.string,
   pending: PropTypes.bool,
   beers: PropTypes.array,
-  moreBeers: PropTypes.array,
   fetchBeers: PropTypes.func,
-  loadMoreBeers: PropTypes.func,
-  page: PropTypes.number,
-  loading: PropTypes.bool
+  page: PropTypes.number
 };
 
 export default Beers;

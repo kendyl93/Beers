@@ -7,7 +7,7 @@ import {
   FETCH_BEERS_PENDING,
   FETCH_BEERS_SUCCESS,
   FETCH_BEERS_ERROR
-} from './types';
+} from './actionTypes';
 
 describe('Beers actions', () => {
   it('FETCH_BEERS_PENDING', () => {

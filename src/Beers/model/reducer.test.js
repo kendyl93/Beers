@@ -4,7 +4,7 @@ import {
   FETCH_BEERS_SUCCESS,
   FETCH_BEERS_ERROR,
   FETCH_BEERS_PENDING
-} from './types';
+} from './actionTypes';
 
 const initialState = { beers: [], error: '', pending: false };
 
