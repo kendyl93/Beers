@@ -1,20 +1,13 @@
-.closeButton {
-	position: absolute;
-	top: 20px;
-	right: 0;
-}
+@import 'partials';
 
-.closeButton:active,
-.closeButton:checked {
-	color: #444;	
-}
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 
-.closeButton:hover {
-	background-color: rgb(249, 255, 217);
-}
-
-.mobile-closeButton {
-	top: auto;
-	bottom: 20px;
-	right: 20px;
+  &:hover {
+    svg {
+      stroke: $greenNetGuru;
+    }
+  }
 }

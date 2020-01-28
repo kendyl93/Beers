@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Backdrop from '../Backdrop/Backdrop';
 import CloseButton from './CloseButton/CloseButton';
@@ -23,15 +24,9 @@ class Modal extends Component {
 
     if (isOpened) {
       return (
-        <div className="Modal-container">
+        <div className="modal-wrapper">
           <Backdrop />
-          <div
-            className={isOpened ? 'Modal' : null}
-            styles={{
-              transform: isOpened ? 'translateY(0)' : 'translateY(-100vh',
-              opacity: isOpened ? '1' : '0'
-            }}
-          >
+          <div className={classNames({ modal: isOpened })}>
             <CloseButton>Close</CloseButton>
             {children}
           </div>

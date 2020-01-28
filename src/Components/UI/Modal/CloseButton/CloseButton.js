@@ -2,20 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import CloseIcon from './CloseIcon';
 import { closeModal } from '../../../../store/actions/index';
 
 import './CloseButton.scss';
 import '../../Button/Button.scss';
 
-const CloseButton = ({ onModalClose, children }) => (
-  <button type="button" onClick={onModalClose}>
-    {children}
-  </button>
+const CloseButton = ({ onModalClose }) => (
+  <div className="close-button" onClick={onModalClose}>
+    <CloseIcon />
+  </div>
 );
 
 CloseButton.propTypes = {
-  onModalClose: PropTypes.func,
-  children: PropTypes.string
+  onModalClose: PropTypes.func
 };
 
 const mapDispatchToProps = dispatch => ({

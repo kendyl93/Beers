@@ -5,9 +5,16 @@ import SingleItem from './SingleItem';
 
 const ListView = ({ items, handleItemClick }) => (
   <div className="list-wrapper row-spacing">
-    {items.map(item => (
-      <SingleItem handleItemClick={handleItemClick}>{item}</SingleItem>
-    ))}
+    {items.map(item => {
+      const { id } = item;
+
+      return (
+        <SingleItem key={id} handleItemClick={handleItemClick}>
+          {item}
+        </SingleItem>
+      );
+    })}
+    )
   </div>
 );
 

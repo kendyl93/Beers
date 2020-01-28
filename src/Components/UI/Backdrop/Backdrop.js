@@ -7,7 +7,7 @@ import { getModalOpen } from '../../../store/actions/selectors';
 import './Backdrop.scss';
 
 const backdrop = ({ isOpened, onModalClose }) =>
-  isOpened && <div className="Backdrop" onClick={onModalClose} />;
+  isOpened && <div className="backdrop" onClick={onModalClose} />;
 
 const mapStateToProps = ({ modalWithDetails }) => ({
   isOpened: getModalOpen(modalWithDetails)
