@@ -104,7 +104,7 @@ class Details extends Component {
     );
 
     return (
-      <div className="Description">
+      <div className="details-wrapper">
         <Image image={image} imageUrl={imageUrl}>
           {loadingSpinner}
         </Image>

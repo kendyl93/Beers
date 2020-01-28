@@ -4,13 +4,13 @@ import BeerReviewer from './BeerReviewer/BeerReviewer';
 import './App.scss';
 
 const App = () => (
-  <div>
-    <h1 className="main-header">
-      <span className="beer">BEER</span>
-      <span>GURU</span>
+  <main className="app">
+    <h1>
+      <span className="highlighted-part">BEER</span>
+      GURU
     </h1>
     <BeerReviewer />
-  </div>
+  </main>
 );
 
 export default App;

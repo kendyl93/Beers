@@ -114,13 +114,13 @@ class List extends Component {
     const errorMessage = <p>An error occured getting data</p>;
 
     const itemList = (
-      <ul className="item-list">
+      <div className="list-wrapper row-spacing">
         {items.map(item => {
           const { id } = item;
 
           return (
-            <li
-              className="item"
+            <div
+            className="item-wrapper"
               key={id}
               onClick={() => {
                 openModalHandler();
@@ -130,10 +130,10 @@ class List extends Component {
               <Link to={`/beer/${id}`}>
                 <Thumbnail item={item} />
               </Link>
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
     );
 
     const endOfListMessage = maybeEndOfListReached && <p>THE END</p>;

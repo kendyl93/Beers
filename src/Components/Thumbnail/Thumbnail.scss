@@ -1,60 +1,59 @@
+// .Thumbnail {
+// 	background-color: #fff;
+// 	height: 200px;
+// 	width: 150px;
+// 	border-radius: 5px;
+// 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+// 	transition: 0.3s;
+// 	display: flex;
+// 	flex-flow: column;
+// 	align-items: center;
+// 	justify-content: center;
+// }
 
-.Thumbnail { 
-	background-color: #fff;
-	height: 200px;
-	width: 150px;
-	border-radius: 5px;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-	transition: 0.3s;
-	display: flex;
-	flex-flow: column;
-	align-items: center;
-	justify-content: center;
-}
+// .Thumbnail:hover {
+// 	box-shadow: 0 6px 12px rgba(0,0,0,0.16), 0 6px 12px rgba(0,0,0,0.23);
+// 	background-color: rgb(249, 255, 217);
+// }
 
-.Thumbnail:hover {
-	box-shadow: 0 6px 12px rgba(0,0,0,0.16), 0 6px 12px rgba(0,0,0,0.23);
-	background-color: rgb(249, 255, 217);
-}
+// .Thumbnail .bottle-cover,
+// .Thumbnail .keg-cover {
+// 	background-position: center;
+// 	background-repeat: no-repeat;
+// 	margin-top: 15px;
+// }
+// .Thumbnail .bottle-cover {
+// 	background-size: 35%;
+// }
 
-.Thumbnail .bottle-cover,
-.Thumbnail .keg-cover {
-	background-position: center;
-	background-repeat: no-repeat;
-	margin-top: 15px;
-}
-.Thumbnail .bottle-cover {
-	background-size: 35%;
-}
+// .Thumbnail .keg-cover {
+// 	background-size: 60%;
+// }
 
-.Thumbnail .keg-cover {
-	background-size: 60%;
-}
+// .Thumbnail .title {
+// 	white-space: nowrap;
+// 	overflow: hidden;
+// 	text-overflow: ellipsis;
+// 	color: #fd8e04;
+// 	margin-top: 10px;
+// 	width: calc(100% - 10px);
+// 	text-align: center;
+// 	font-size: 0.9em;
+// }
 
-.Thumbnail .title {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	color: #fd8e04;
-	margin-top: 10px;
-	width: calc(100% - 10px);
-	text-align: center;
-	font-size: 0.9em;
-}
+// .Thumbnail .slogan {
+// 	white-space: nowrap;
+// 	overflow: hidden;
+// 	text-overflow: ellipsis;
+// 	color: #333;
+// 	margin-bottom: 10px;
+// 	text-align: center;
+// 	width: calc(100% - 10px);
+// 	font-size: 0.8em;
+// }
 
-.Thumbnail .slogan {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	color: #333;
-	margin-bottom: 10px;
-	text-align: center;
-	width: calc(100% - 10px);
-	font-size: 0.8em;
-}
-
-@media only screen and (min-width: 1001px) {
-	.Thumbnail .preview-top {
-		width: 200px;
-	}
-}
+// @media only screen and (min-width: 1001px) {
+// 	.Thumbnail .preview-top {
+// 		width: 200px;
+// 	}
+// }
