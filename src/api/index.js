@@ -10,19 +10,25 @@ export const query = (page, beersPerPage) =>
 
 export const randomQuery = '/random';
 
-const featureQuery = ([feature, value]) => `${feature}_lt=${value}`;
+const RANGE = 4;
 
-export const getSimilarBeersQuery = features => {
+const featureQuery = ([feature, value]) => {
+  const gtRangeValue = value > 2 ? value - RANGE / 2 : 1;
+  const ltRangeValue = value + RANGE / 2;
+
+  return `${feature}_lt=${ltRangeValue}&${feature}_gt=${gtRangeValue}`;
+};
+
+export const getSimilarBeersQuery = (features = {}) => {
   const featuresValues = Object.values(features);
-  const atLeastOneEmpty = featuresValues.filter(Boolean) !== 3;
-
+  const atLeastOneEmpty = featuresValues.filter(Boolean).length !== 3;
   if (atLeastOneEmpty) {
     return randomQuery;
   }
 
   const similarQuerySplitted = Object.entries(features).map(featureQuery);
   const queryBody = similarQuerySplitted.join('&');
-  const fullQuery = `?${queryBody}}&per_page=1`;
+  const fullQuery = `?${queryBody}&per_page=1`;
 
   return fullQuery;
 };

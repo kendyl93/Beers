@@ -23,17 +23,15 @@ class Similar extends Component {
     items: []
   };
 
-  getRandomBeer = async (item, index) => {
+  getSimilarOrRandom = async item => {
     const { id: indexOfANewBeer, abv, ibu, ebc } = item || {};
     const features = { abv, ibu, ebc };
 
-    const similarOrRandom = getSimilarBeersQuery(features);
+    const similarOrRandomQuery = getSimilarBeersQuery(features);
 
-    const query = item ? similarOrRandom : 'randomQuery';
-
-    const setSimilarBeers = async () => {
+    const setSimilarOrRandomBeers = async () => {
       try {
-        const response = await fethByBaseEndpoint(query);
+        const response = await fethByBaseEndpoint(similarOrRandomQuery);
         const data = await response.json();
         const beer = data.shift();
 
@@ -58,7 +56,7 @@ class Similar extends Component {
       {
         error: false
       },
-      await setSimilarBeers()
+      await setSimilarOrRandomBeers()
     );
   };
 
@@ -72,13 +70,13 @@ class Similar extends Component {
     alreadyFetched.splice(index, 1);
 
     const fetchByCount = () => {
-      const { getRandomBeer } = this;
+      const { getSimilarOrRandom } = this;
       const { quantity } = this.state;
 
       let countLeftToFetch = quantity - alreadyFetched.length;
       // eslint-disable-next-line no-plusplus
       while (countLeftToFetch--) {
-        getRandomBeer(item, countLeftToFetch);
+        getSimilarOrRandom(item, countLeftToFetch);
       }
     };
 
