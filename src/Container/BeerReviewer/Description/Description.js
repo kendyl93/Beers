@@ -6,6 +6,7 @@ import { axiosBeerApi } from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getModalOpen, getBeerDetails } from '../../../store/actions/selectors';
+import PropTypes from 'prop-types'
 
 import './Description.scss';
 
@@ -29,18 +30,24 @@ class Description extends Component {
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.beer !== this.props.beer || this.state.pending;
+    const { pending } = this.state;
+    const { beer } = this.props;
+
+    return nextProps.beer !== beer || pending;
   }
 
   // if item is undefined then read its id from location
-  beer = beer => {
-    beer = beer ? null : window.location.pathname.match(/[^/beer/:]\d*/)[0];
-    if (!this.state.pending) {
+  beer = sourceBeer => {
+    const beer = sourceBeer ? null : window.location.pathname.match(/[^/beer/:]\d*/)[0];
+    const { pending } = this.state;
+
+    if (!pending) {
       this.setState({ pending: true });
     }
+
     if (typeof beer === 'string') {
-      // otherwise the beer is specified and must be fetched
-      this.singleBeerHandler(beer);
+      const { singleBeerHandler } = this;
+      singleBeerHandler(beer);
     }
   };
 
@@ -137,6 +144,11 @@ class Description extends Component {
       </div>
     );
   }
+}
+
+Description.propTypes = {
+  beer: PropTypes.object,
+  getItemHandler: PropTypes.func
 }
 
 const mapStateToProps = ({ beerDetails, modalWithDetails }) => ({
