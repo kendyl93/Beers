@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { openModal } from '../../store/actions/index';
 import Page from './Page/Page';
@@ -8,32 +9,35 @@ import List from './List/List';
 import Modal from '../../Components/UI/Modal/Modal';
 import { getModalOpen } from '../../store/actions/selectors';
 
+const SINGLE_BEER_PATHNAME = '/beer/';
+
+const matchSourcePathname = sourcePath =>
+  Boolean(window.location.pathname.match(sourcePath));
+
+const getSourcePathname = sourcePath =>
+  window.location.pathname.match(sourcePath)[0];
 class BeerReviewer extends Component {
-  state = {
-    isFirstLoad: true
-  };
-
-  locationHandler = () => {
-    // it checks if the very first time of page loading and is it not the source location
-    const isPathname = Boolean(window.location.pathname.match('/beer/'));
-
-    console.log({ kjhgjgh: window.location.pathname });
-    this.setState({ isFirstLoad: false });
-    if (this.state.isFirstLoad & isPathname) {
-      // if we try to get 'beer' path the app opens the modal window with specified beer page component
-      const pathname = window.location.pathname.match('/beer/')[0];
-
-      console.log({ pathname });
-      if (pathname === '/beer/') {
-        this.props.onModalOpen();
-      }
-    }
-  };
-
   // eslint-disable-next-line camelcase
   UNSAFE_componentWillMount() {
     this.locationHandler();
   }
+
+  locationHandler = () => {
+    const pathnameExists = matchSourcePathname(SINGLE_BEER_PATHNAME);
+    if (!pathnameExists) {
+      return;
+    }
+    const pathname = getSourcePathname(SINGLE_BEER_PATHNAME);
+
+    const maybeProperPathname = pathname === SINGLE_BEER_PATHNAME;
+    if (!maybeProperPathname) {
+      return;
+    }
+
+    const { onModalOpen } = this.props;
+
+    onModalOpen();
+  };
 
   render() {
     return (
@@ -50,6 +54,10 @@ class BeerReviewer extends Component {
     );
   }
 }
+
+BeerReviewer.propTypes = {
+  onModalOpen: PropTypes.func
+};
 
 const mapStateToProps = ({ modalWithDetails }) => ({
   isModalOpened: getModalOpen(modalWithDetails)
