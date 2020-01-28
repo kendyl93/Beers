@@ -115,20 +115,24 @@ class List extends Component {
 
     const itemList = (
       <ul className="item-list">
-        {items.map(item => (
-          <li
-            className="item"
-            key={item.id}
-            onClick={() => {
-              openModalHandler();
-              beersStoreHandler(item);
-            }}
-          >
-            <Link to={`/beer/:${item.id}`}>
-              <Thumbnail item={item} />
-            </Link>
-          </li>
-        ))}
+        {items.map(item => {
+          const { id } = item;
+
+          return (
+            <li
+              className="item"
+              key={id}
+              onClick={() => {
+                openModalHandler();
+                beersStoreHandler(item);
+              }}
+            >
+              <Link to={`/beer/${id}`}>
+                <Thumbnail item={item} />
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     );
 
