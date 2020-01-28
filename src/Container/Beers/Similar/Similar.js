@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 
 import { getBeer } from '../../../store/actions/index';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import { fethByBaseEndpoint } from '../../../api';
 import { getBeerDetails } from '../../../store/actions/selectors';
-import ListView from '../../../Components/UI/ListView/ListView';
+import ListView from '../../../UI/ListView/ListView';
 
 import './Similar.scss';
 

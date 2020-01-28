@@ -1,13 +1,16 @@
 import React from 'react';
 
-import SuggestionList from '../Similar/Similar';
+import Similar from '../Similar/Similar';
 import Details from '../Details/Details';
 import './ModalPage.scss';
+import ErrorBoundary from '../../ErrorBoundary/Error/ErrorBoundary';
 
 const ModalPage = () => (
   <div className="modal-page row-spacing-double">
     <Details />
-    <SuggestionList />
+    <ErrorBoundary>
+      <Similar />
+    </ErrorBoundary>
   </div>
 );
 

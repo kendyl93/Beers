@@ -4,10 +4,9 @@ import { PropTypes } from 'prop-types';
 
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
 import { fethByBaseEndpoint } from '../../../api';
-import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getBeerDetails, getModalOpen } from '../../../store/actions/selectors';
-import ListView from '../../../Components/UI/ListView/ListView';
+import ListView from '../../../UI/ListView/ListView';
 
 import './List.scss';
 
@@ -37,18 +36,7 @@ class List extends Component {
     try {
       const response = await fethByBaseEndpoint(query);
 
-      const maybeError = statusHandler(response);
-      if (maybeError) {
-        throw statusHandler(response);
-      }
-
       const data = await response.json();
-
-      const dataExist = itemErrorChecker(data);
-      if (dataExist) {
-        return;
-      }
-
       const anyData = data.length !== 0;
       if (anyData) {
         storedItems = [...storedItems, ...data];

@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { singleBeerEndpoint } from '../../../api';
-import Thumbnail from '../../Thumbnail/Thumbnail';
+import { singleBeerEndpoint } from '../../api';
+import Thumbnail from '../Thumbnail/Thumbnail';
 
 const SingleItem = ({ children: item, handleItemClick }) => {
   const { id } = item;

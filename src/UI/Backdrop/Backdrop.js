@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { closeModal } from '../../../store/actions/index';
-import { getModalOpen } from '../../../store/actions/selectors';
+import { closeModal } from '../../store/actions/index';
+import { getModalOpen } from '../../store/actions/selectors';
 
 import './Backdrop.scss';
 

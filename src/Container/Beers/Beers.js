@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { openModal } from '../../store/actions/index';
 import ModalPage from './ModalPage/ModalPage';
 import List from './List/List';
-import Modal from '../../Components/UI/Modal/Modal';
+import Modal from '../../UI/Modal/Modal';
 import { getModalOpen } from '../../store/actions/selectors';
 
 const SINGLE_BEER_PATHNAME = '/beer/';

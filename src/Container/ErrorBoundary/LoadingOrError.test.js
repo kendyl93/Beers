@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import LoadingOrError from './LoadingOrError';
-import Spinner from '../../Components/UI/LoadingSpinner/Spinner';
+import Spinner from '../../UI/LoadingSpinner/Spinner';
 import ErrorView from './Error/ErrorView';
 
 describe('<LoadingOrError/>', () => {

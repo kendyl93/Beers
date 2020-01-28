@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
 import { fethByBaseEndpoint } from '../../../api';
-import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getModalOpen, getBeerDetails } from '../../../store/actions/selectors';
-import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
+import Thumbnail from '../../../UI/Thumbnail/Thumbnail';
 import Body from './Body';
 
 import './Details.scss';
@@ -48,18 +47,8 @@ class Details extends Component {
 
     try {
       const response = await fethByBaseEndpoint(query);
-      const maybeError = statusHandler(response);
-      if (maybeError) {
-        throw statusHandler(response);
-      }
-
       const data = await response.json();
       const item = data.shift();
-
-      const dataExist = itemErrorChecker(data);
-      if (dataExist) {
-        return;
-      }
 
       const { getItemHandler } = this.props;
       getItemHandler(item);
