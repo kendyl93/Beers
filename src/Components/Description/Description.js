@@ -1,6 +1,17 @@
 import React from 'react';
 import './Description.scss';
 
+const ImageContainer = ({ image, image_url }) => (
+  <div
+    className={image ? 'bottle-cover' : 'keg-cover'}
+    style={{
+      width: '200px',
+      height: image ? '450px' : '300px',
+      backgroundImage: `url("${image_url}")`
+    }}
+  />
+);
+
 const description = props => {
   const {
     image_url,
@@ -14,21 +25,10 @@ const description = props => {
   } = props.state.beer;
   // test what is a kind of image cover for bottle or keg
   const image = !/keg\.png/i.test(image_url);
-  	const imageContainer =
-   <div
-  			className={image ? 'bottle-cover' : 'keg-cover'}
-  			style={{
-  				width: '200px',
-  				height: image ? '450px' : '300px',
-  				backgroundImage: `url("${image_url}")`
-  			}}
-  			>
-  		</div>
-   );
 
   return (
     <div className="Description">
-      {imageContainer}
+      <ImageContainer image={image} image_url={image_url} />
       <div className="text-container">
         <h3 className="title">{name}</h3>
 

@@ -14,9 +14,9 @@ class Description extends Component {
     isLoading: false
   };
 
-  singleBeerHandler = itemID => {
+  singleBeerHandler = beerId => {
     this.setState({ isError: false });
-    const query = `/${itemID}`;
+    const query = `/${beerId}`;
     axiosBeerApi
       .get(query)
       .then(res => {
