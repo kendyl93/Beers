@@ -7,7 +7,7 @@ import { fethByBaseEndpoint } from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getModalOpen, getBeerDetails } from '../../../store/actions/selectors';
-import Image from './Parts/Image';
+import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import Body from './Body';
 
 import './Details.scss';
@@ -81,33 +81,25 @@ class Details extends Component {
   };
 
   render() {
+    const { beer } = this.props || {};
     const {
-      beer: {
-        image_url: imageUrl,
-        name,
-        tagline,
-        ibu,
-        abv,
-        ebc,
-        description,
-        food_pairing: foodPairing
-      }
-    } = this.props || {};
+      name,
+      tagline,
+      ibu,
+      abv,
+      ebc,
+      description,
+      food_pairing: foodPairing
+    } = beer;
     const { error, pending } = this.state;
-
-    const image = !/keg\.png/i.test(imageUrl);
-
-    const loadingSpinner = pending && (
-      <div className="spinner-cover">
-        <LoadingOrError error={error} />
-      </div>
-    );
 
     return (
       <div className="details-wrapper">
-        <Image image={image} imageUrl={imageUrl}>
-          {loadingSpinner}
-        </Image>
+        {pending ? (
+          <LoadingOrError error={error} />
+        ) : (
+          <Thumbnail item={beer} onlyImage xl />
+        )}
         <Body
           name={name}
           tagline={tagline}

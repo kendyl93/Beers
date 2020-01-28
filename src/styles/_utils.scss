@@ -7,6 +7,10 @@ body {
   margin-bottom: 16px;
 }
 
+.row-spacing-double > *:not(:last-child) {
+  margin-bottom: 32px;
+}
+
 .row-spacing-half > *:not(:last-child) {
   margin-bottom: 8px;
 }
@@ -29,7 +33,7 @@ h1 {
 
 h4 {
   font-size: $baseFontSize * 1.2;
-  margin-bottom: $baseFontSize * 2;
+  margin: $baseFontSize 0;
 }
 
 a {

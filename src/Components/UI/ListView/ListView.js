@@ -14,7 +14,6 @@ const ListView = ({ items, handleItemClick }) => (
         </SingleItem>
       );
     })}
-    )
   </div>
 );
 

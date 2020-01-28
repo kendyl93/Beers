@@ -1,6 +1,6 @@
 @import 'partials';
 
-.Page {
+.modal-page {
   align-items: center;
   flex-flow: column;
   border-radius: 5px;
@@ -9,5 +9,9 @@
 
   @media screen and (min-width: $small) {
     flex-direction: column;
+  }
+
+  @media screen and (min-width: $medium) {
+    height: 100%;
   }
 }

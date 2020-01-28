@@ -2,8 +2,8 @@
 
 .close-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: $marginUnit * 2;
+  right: $marginUnit * 2;
 
   &:hover {
     svg {

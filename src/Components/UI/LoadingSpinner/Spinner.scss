@@ -3,6 +3,9 @@
 .spinner-wrapper {
   margin: auto;
   background: transparent;
-  display: block;
   shape-rendering: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
