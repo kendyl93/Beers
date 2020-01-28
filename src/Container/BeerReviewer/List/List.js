@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
 
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { axiosBeerApi, ENDPOINT } from '../../../api';
+import { fethByBaseEndpoint, BASE_ENDPOINT } from '../../../api';
 import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getBeerDetails, getModalOpen } from '../../../store/actions/selectors';
@@ -33,17 +33,17 @@ class List extends Component {
       maybeError: false
     });
 
-    const query = `${ENDPOINT}?page=${page}&beersPerPage=${beersPerPage}`;
+    const query = `?page=${page}&beersPerPage=${beersPerPage}`;
 
     try {
-      const response = await axiosBeerApi.get(query);
+      const response = await fethByBaseEndpoint(query);
 
       const maybeError = statusHandler(response);
       if (maybeError) {
         throw statusHandler(response);
       }
 
-      const { data } = response;
+      const data = await response.json();
 
       const dataExist = itemErrorChecker(data);
       if (dataExist) {

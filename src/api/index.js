@@ -1,7 +1,3 @@
-import axios from 'axios';
+export const BASE_ENDPOINT = 'https://api.punkapi.com/v2/beers';
 
-export const ENDPOINT = 'https://api.punkapi.com/v2/beers';
-
-export const axiosBeerApi = axios.create({
-  baseURL: ENDPOINT
-});
+export const fethByBaseEndpoint = endpoint => fetch(`${BASE_ENDPOINT}${endpoint}`);

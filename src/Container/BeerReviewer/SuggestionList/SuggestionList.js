@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getBeer } from '../../../store/actions/index';
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { axiosBeerApi } from '../../../api';
+import { fethByBaseEndpoint } from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 
 import './SuggestionList.scss';
@@ -26,14 +26,14 @@ class SuggestionList extends Component {
       const query = '/random';
 
       try {
-        const response = await axiosBeerApi.get(query);
+        const response = await fethByBaseEndpoint(query);
 
         const maybeError = statusHandler(response);
         if (maybeError) {
           throw statusHandler(response);
         }
 
-        const { data } = response;
+        const data = await response.json();
 
         const dataExist = itemErrorChecker(data);
         if (dataExist) {

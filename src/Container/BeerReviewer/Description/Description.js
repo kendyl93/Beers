@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { axiosBeerApi } from '../../../api';
+import { fethByBaseEndpoint } from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getModalOpen, getBeerDetails } from '../../../store/actions/selectors';
@@ -56,14 +56,13 @@ class Description extends Component {
     const query = `/${beerId}`;
 
     try {
-      const response = await axiosBeerApi.get(query);
-
+      const response = await fethByBaseEndpoint(query);
       const maybeError = statusHandler(response);
       if (maybeError) {
         throw statusHandler(response);
       }
-
-      const { data } = response;
+      
+      const data = await response.json();
       const item = data.shift();
 
       const dataExist = itemErrorChecker(data);
