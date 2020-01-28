@@ -1,11 +1,14 @@
 @import 'partials';
 
 .close-button {
+  @include transition;
   position: absolute;
   top: $marginUnit * 2;
   right: $marginUnit * 2;
 
   &:hover {
+    cursor: pointer;
+
     svg {
       stroke: $greenNetGuru;
     }

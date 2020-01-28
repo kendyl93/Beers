@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Backdrop from '../Backdrop/Backdrop';
-import CloseButton from './CloseButton/CloseButton';
+import CloseButton from '../CloseButton/CloseButton';
 import { openModal, closeModal } from '../../../store/actions/index';
 import { getModalOpen } from '../../../store/actions/selectors';
 
