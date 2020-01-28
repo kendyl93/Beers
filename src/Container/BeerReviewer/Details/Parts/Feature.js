@@ -5,6 +5,6 @@ const Feature = ({ children }) => (
   <div className="features-name">{children}</div>
 );
 
-Feature.propTypes = { children: PropTypes.string };
+Feature.propTypes = { children: PropTypes.node };
 
 export default Feature;

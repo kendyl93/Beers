@@ -22,9 +22,9 @@ const Features = ({ ibu, abv, ebc }) => (
 );
 
 Features.propTypes = {
-  ibu: PropTypes.string,
-  abv: PropTypes.string,
-  ebc: PropTypes.string
+  ibu: PropTypes.number,
+  abv: PropTypes.number,
+  ebc: PropTypes.number
 };
 
 export default Features;

@@ -8,6 +8,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BEER:
       return {
+        ...state,
         beer: action.beer
       };
     default:

@@ -20,9 +20,9 @@ const Body = ({ name, tagline, ibu, abv, ebc, description, foodPairing }) => (
 Body.propTypes = {
   name: PropTypes.string,
   tagline: PropTypes.string,
-  ibu: PropTypes.string,
-  abv: PropTypes.string,
-  ebc: PropTypes.string,
+  ibu: PropTypes.number,
+  abv: PropTypes.number,
+  ebc: PropTypes.number,
   description: PropTypes.string,
   foodPairing: PropTypes.array
 };

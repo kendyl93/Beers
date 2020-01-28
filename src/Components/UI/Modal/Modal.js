@@ -44,7 +44,7 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  isOpened: PropTypes.func,
+  isOpened: PropTypes.bool,
   children: PropTypes.node
 };
 
