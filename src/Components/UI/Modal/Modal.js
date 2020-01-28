@@ -22,19 +22,17 @@ class Modal extends Component {
   render() {
     const { isOpened, children } = this.props;
 
-    if (isOpened) {
-      return (
-        <div className="modal-wrapper">
-          <Backdrop />
-          <div className={classNames({ modal: isOpened })}>
-            <CloseButton>Close</CloseButton>
-            {children}
-          </div>
+    return isOpened ? (
+      <div className="modal-wrapper">
+        <Backdrop />
+        <div className={classNames({ modal: isOpened })}>
+          <CloseButton />
+          {children}
         </div>
-      );
-    }
-
-    return <Redirect push to="/" />;
+      </div>
+    ) : (
+      <Redirect push to="/" />
+    );
   }
 }
 

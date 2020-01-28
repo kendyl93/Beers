@@ -8,7 +8,7 @@ import Description from './Parts/Description';
 import Tips from './Parts/Tips';
 
 const Body = ({ name, tagline, ibu, abv, ebc, description, foodPairing }) => (
-  <div className="text-container">
+  <div className="text-container row-spacing">
     <Name>{name}</Name>
     <Tagline>{tagline}</Tagline>
     <Features ibu={ibu} abv={abv} ebc={ebc} />

@@ -6,8 +6,8 @@ import Tip from './Tip';
 const emptyMessage = 'Probably you can drink it to every dish :)';
 
 const Tips = ({ tips }) => (
-  <div className="pairing-list">
-    <p>Best served with:</p>
+  <div className="pairing-list row-spacing-half">
+    <h5>Best served with:</h5>
     <ul className="pairing-list">
       {tips ? tips.map(tip => <Tip key={tip} tip={tip} />) : emptyMessage}
     </ul>

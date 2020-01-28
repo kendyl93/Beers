@@ -94,7 +94,7 @@ class Details extends Component {
     const { error, pending } = this.state;
 
     return (
-      <div className="details-wrapper">
+      <div className="details-wrapper row-spacing-double">
         {pending ? (
           <LoadingOrError error={error} />
         ) : (
