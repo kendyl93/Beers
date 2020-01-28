@@ -1,27 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import * as actionsCreator from '../../../../store/actions/index';
+import { closeModal } from '../../../../store/actions/index';
 
 import './CloseButton.scss';
 import '../../Button/Button.scss';
 
-const classesArray = ['Button', 'closeButton'];
-let classes;
-if (window.innerWidth <= 600) {
-  classesArray.push('mobile-closeButton');
-}
-classes = classesArray.join(' ');
-
-const CloseButton = props => (
-  <button className={classes} onClick={props.onModalClose}>
-    {props.children}
+const CloseButton = ({ onModalClose, children }) => (
+  <button type="button" onClick={onModalClose}>
+    {children}
   </button>
 );
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onModalClose: () => dispatch(actionsCreator.closeModal())
-  };
+CloseButton.propTypes = {
+  onModalClose: PropTypes.func,
+  children: PropTypes.string
 };
+
+const mapDispatchToProps = dispatch => ({
+  onModalClose: () => dispatch(closeModal())
+});
+
 export default connect(undefined, mapDispatchToProps)(CloseButton);
