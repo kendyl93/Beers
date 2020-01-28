@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import { getBeer } from '../../../store/actions/index';
 import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { fethByBaseEndpoint } from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
+import { fethByBaseEndpoint } from '../../../api';
+import { getBeerDetails } from '../../../store/actions/selectors';
 
 import './Similar.scss';
-import { getBeerDetails } from '../../../store/actions/selectors';
 
 class Similar extends Component {
   state = {

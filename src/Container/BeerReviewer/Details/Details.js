@@ -1,27 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
 import { fethByBaseEndpoint } from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getModalOpen, getBeerDetails } from '../../../store/actions/selectors';
-import PropTypes from 'prop-types'
+import Image from './Parts/Image';
+import Body from './Body';
 
 import './Details.scss';
-
-const ImageContainer = ({ children, image, imageUrl }) => (
-  <div
-    className={image ? 'bottle-cover' : 'keg-cover'}
-    style={{
-      width: '150px',
-      height: image ? '350px' : '250px',
-      backgroundImage: `url("${imageUrl}")`
-    }}
-  >
-    {children}
-  </div>
-);
 
 class Details extends Component {
   state = {
@@ -38,7 +27,9 @@ class Details extends Component {
 
   // if item is undefined then read its id from location
   beer = sourceBeer => {
-    const beer = sourceBeer ? null : window.location.pathname.match(/[^/beer/:]\d*/)[0];
+    const beer = sourceBeer
+      ? null
+      : window.location.pathname.match(/[^/beer/:]\d*/)[0];
     const { pending } = this.state;
 
     if (!pending) {
@@ -61,7 +52,7 @@ class Details extends Component {
       if (maybeError) {
         throw statusHandler(response);
       }
-      
+
       const data = await response.json();
       const item = data.shift();
 
@@ -74,6 +65,7 @@ class Details extends Component {
       getItemHandler(item);
       this.setState({ pending: false });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
@@ -104,6 +96,7 @@ class Details extends Component {
     const { error, pending } = this.state;
 
     const image = !/keg\.png/i.test(imageUrl);
+
     const loadingSpinner = pending && (
       <div className="spinner-cover">
         <LoadingOrError error={error} />
@@ -112,34 +105,18 @@ class Details extends Component {
 
     return (
       <div className="Description">
-        <ImageContainer image={image} imageUrl={imageUrl}>
+        <Image image={image} imageUrl={imageUrl}>
           {loadingSpinner}
-        </ImageContainer>
-        <h1>FROM container</h1>
-        <div className="text-container">
-          <h3 className="title">{name}</h3>
-          <div className="slogan">{tagline}</div>
-          <div className="feature-container">
-            <div className="features-name">
-              <strong>IBU</strong>: {ibu}
-            </div>
-            <div className="features-name">
-              <strong>ABV</strong>: {abv}%
-            </div>
-            <div className="features-name">
-              <strong>EBC</strong>: {ebc}
-            </div>
-          </div>
-          <div className="description">{description}</div>
-          <div className="pairing-list">
-            <p>Best served with:</p>
-            <ul className="pairing-list">
-              {foodPairing
-                ? foodPairing.map(el => <li key={el}>{el}</li>)
-                : 'no specified food'}
-            </ul>
-          </div>
-        </div>
+        </Image>
+        <Body
+          name={name}
+          tagline={tagline}
+          ibu={ibu}
+          abv={abv}
+          ebc={ebc}
+          description={description}
+          foodPairing={foodPairing}
+        />
       </div>
     );
   }
@@ -148,7 +125,7 @@ class Details extends Component {
 Details.propTypes = {
   beer: PropTypes.object,
   getItemHandler: PropTypes.func
-}
+};
 
 const mapStateToProps = ({ beerDetails, modalWithDetails }) => ({
   beer: getBeerDetails(beerDetails),
