@@ -8,7 +8,7 @@ import { getBeer, openModal } from '../../../store/actions/index';
 import { getModalOpen, getBeerDetails } from '../../../store/actions/selectors';
 import PropTypes from 'prop-types'
 
-import './Description.scss';
+import './Details.scss';
 
 const ImageContainer = ({ children, image, imageUrl }) => (
   <div
@@ -23,7 +23,7 @@ const ImageContainer = ({ children, image, imageUrl }) => (
   </div>
 );
 
-class Description extends Component {
+class Details extends Component {
   state = {
     error: false,
     pending: false
@@ -145,7 +145,7 @@ class Description extends Component {
   }
 }
 
-Description.propTypes = {
+Details.propTypes = {
   beer: PropTypes.object,
   getItemHandler: PropTypes.func
 }
@@ -160,4 +160,4 @@ const mapDispatchToProps = dispatch => ({
   onModalOpen: () => dispatch(openModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Description);
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

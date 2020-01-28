@@ -1,16 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// import { ThumbContext } from '../Page/SuggestionList/SuggestionList';
 import './Thumbnail.scss';
 
-const thumbnail = props => {
-  const { image_url, name, tagline } = props.item;
-  const image = !/keg\.png/i.test(image_url);
+const Thumbnail = ({ item: { image_url: imageUrl, name, tagline } }) => {
+  const image = !/keg\.png/i.test(imageUrl);
 
   const style = {
     width: '100px',
     height: image ? '150px' : '140px',
-    backgroundImage: `url("${image_url}")`
+    backgroundImage: `url("${imageUrl}")`
   };
 
   return (
@@ -22,4 +21,11 @@ const thumbnail = props => {
   );
 };
 
-export default thumbnail;
+Thumbnail.propTypes = {
+  item: PropTypes.object,
+  image_url: PropTypes.string,
+  name: PropTypes.string,
+  tagline: PropTypes.string
+};
+
+export default Thumbnail;

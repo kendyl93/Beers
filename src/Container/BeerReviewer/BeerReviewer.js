@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { openModal } from '../../store/actions/index';
-import Page from './Page/Page';
+import ModalPage from './ModalPage/ModalPage';
 import List from './List/List';
 import Modal from '../../Components/UI/Modal/Modal';
 import { getModalOpen } from '../../store/actions/selectors';
 
 const SINGLE_BEER_PATHNAME = '/beer/';
+const ROOT_PATH = '/';
 
 const matchSourcePathname = sourcePath =>
   Boolean(window.location.pathname.match(sourcePath));
@@ -43,11 +44,11 @@ class BeerReviewer extends Component {
     return (
       <>
         <Modal>
-          <Route path="/beer/">
-            <Page />
+          <Route path={SINGLE_BEER_PATHNAME}>
+            <ModalPage />
           </Route>
         </Modal>
-        <Route path="/">
+        <Route path={ROOT_PATH}>
           <List />
         </Route>
       </>

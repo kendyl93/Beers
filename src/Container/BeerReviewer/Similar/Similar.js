@@ -9,10 +9,10 @@ import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
 import { fethByBaseEndpoint } from '../../../api';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 
-import './SuggestionList.scss';
+import './Similar.scss';
 import { getBeerDetails } from '../../../store/actions/selectors';
 
-class SuggestionList extends Component {
+class Similar extends Component {
   state = {
     pending: false,
     error: false,
@@ -161,8 +161,8 @@ const mapDispatchToProps = dispatch => ({
   itemStoreHandler: beer => dispatch(getBeer(beer))
 });
 
-SuggestionList.propTypes = {
+Similar.propTypes = {
   itemStoreHandler: PropTypes.func
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SuggestionList);
+export default connect(mapStateToProps, mapDispatchToProps)(Similar);
