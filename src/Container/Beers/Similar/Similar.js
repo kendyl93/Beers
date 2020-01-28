@@ -105,7 +105,11 @@ class Similar extends Component {
     const { itemStoreHandler } = this.props;
     const { renderBeers, downloadedItems } = this;
 
-    const loading = pending && <LoadingOrError error={error} />;
+    const loading = pending && (
+      <div className="similar-spinner-wrapper">
+        <LoadingOrError error={error} />
+      </div>
+    );
 
     const handleItemClick = item => {
       const { id } = item;
@@ -118,10 +122,12 @@ class Similar extends Component {
     return (
       <div className="similar">
         <h4 className="hint">Have you tried one of theese ?</h4>
-        {loading}
-        {!pending && (
-          <ListView items={items} handleItemClick={handleItemClick} />
-        )}
+        <div className="similar-body">
+          {loading}
+          {!pending && (
+            <ListView items={items} handleItemClick={handleItemClick} />
+          )}
+        </div>
       </div>
     );
   }

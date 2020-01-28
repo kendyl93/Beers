@@ -9,12 +9,21 @@
     max-width: 80%;
   }
 
+  .similar-spinner-wrapper {
+    min-height: 280px;
+    display: flex;
+  }
+
   h4 {
     text-align: center;
   }
 
   .hint {
     margin: auto;
+  }
+
+  .similar-body {
+    flex-grow: 1;
   }
 
   .list {
