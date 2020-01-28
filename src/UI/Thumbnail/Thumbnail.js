@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import beerThumbnail from './beerThumbnail.png';
 
 const NORMAL_HEIGHT = 140;
-const XL_HEIGHT = NORMAL_HEIGHT * 2;
+const xlHeight = sourceUrl => (sourceUrl ? 280 : 180);
 
 const Thumbnail = ({
   item: { image_url: imageUrl, name, tagline },
@@ -12,7 +12,7 @@ const Thumbnail = ({
   xl = false
 }) => {
   const sourceUrlOrDefault = imageUrl || beerThumbnail;
-  const height = xl ? XL_HEIGHT : NORMAL_HEIGHT;
+  const height = xl ? xlHeight(imageUrl) : NORMAL_HEIGHT;
 
   return (
     <div className="thumbnail-wrapper">

@@ -15,7 +15,7 @@ const ROOT_PATH = '/';
 const matchSourcePathname = sourcePath =>
   Boolean(window.location.pathname.match(sourcePath));
 
-const getSourcePathname = sourcePath =>
+export const getSourcePathname = sourcePath =>
   window.location.pathname.match(sourcePath)[0];
 
 class Beers extends Component {

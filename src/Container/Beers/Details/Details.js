@@ -28,7 +28,7 @@ class Details extends Component {
   beer = sourceBeer => {
     const beer = sourceBeer
       ? null
-      : window.location.pathname.match(/[^/beer/:]\d*/)[0];
+      : window.location.pathname.match(/[^/beer/]\d*/)[0];
     const { pending } = this.state;
 
     if (!pending) {

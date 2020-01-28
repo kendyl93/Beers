@@ -1,7 +1,7 @@
 {
   "name": "BeerGuru",
   "version": "1.0.0",
-  "description": "",
+  "description": "App created for an interview process",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open --mode development",

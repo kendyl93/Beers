@@ -1,0 +1,16 @@
+@import 'partials';
+
+.end-of-page-wrapper {
+  width: 100%;
+  text-align: center;
+
+  .message {
+    font-size: 48px;
+    font-weight: 600;
+    margin: 32px 0;
+
+    @media screen and (min-width: $large) {
+      margin: 48px 0;
+    }
+  }
+}

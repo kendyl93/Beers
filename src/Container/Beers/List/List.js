@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { fethByBaseEndpoint } from '../../../api';
+import { fethByBaseEndpoint, query } from '../../../api';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getBeerDetails, getModalOpen } from '../../../store/actions/selectors';
 import ListView from '../../../UI/ListView/ListView';
+import EndOfPage from './EndOfPage';
 
 import './List.scss';
 
@@ -31,10 +32,9 @@ class List extends Component {
       maybeError: false
     });
 
-    const query = `?page=${page}&beersPerPage=${beersPerPage}`;
-
     try {
-      const response = await fethByBaseEndpoint(query);
+      const byPageNumber = query(page, beersPerPage);
+      const response = await fethByBaseEndpoint(byPageNumber);
 
       const data = await response.json();
       const anyData = data.length !== 0;
@@ -108,7 +108,7 @@ class List extends Component {
 
     const errorMessage = <p>An error occured getting data</p>;
 
-    const endOfListMessage = maybeEndOfListReached && <p>THE END</p>;
+    const endOfListMessage = maybeEndOfListReached && <EndOfPage />;
     const loadingView = pending && <LoadingOrError error={maybeError} />;
     const body = !maybeError ? (
       <ListView items={items} handleItemClick={handleItemClick} />
