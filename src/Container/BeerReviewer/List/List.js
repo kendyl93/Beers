@@ -60,6 +60,7 @@ class List extends Component {
         page - 1;
         this.setState({ maybeEndOfListReached: true });
       }
+
       this.setState({
         items: storedItems,
         page,
