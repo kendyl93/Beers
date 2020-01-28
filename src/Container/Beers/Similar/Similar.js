@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 
 import { getBeer } from '../../../store/actions/index';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { fethByBaseEndpoint } from '../../../api';
+import {
+  fethByBaseEndpoint,
+  getSimilarBeersQuery,
+  randomQuery
+} from '../../../api';
 import { getBeerDetails } from '../../../store/actions/selectors';
 import ListView from '../../../UI/ListView/ListView';
 
@@ -19,10 +23,15 @@ class Similar extends Component {
     items: []
   };
 
-  getRandomBeer = async indexOfANewBeer => {
-    const setSuggestedBeers = async () => {
-      const query = '/random';
+  getRandomBeer = async (item, index) => {
+    const { id: indexOfANewBeer, abv, ibu, ebc } = item || {};
+    const features = { abv, ibu, ebc };
 
+    const similarOrRandom = getSimilarBeersQuery(features);
+
+    const query = item ? similarOrRandom : 'randomQuery';
+
+    const setSimilarBeers = async () => {
       try {
         const response = await fethByBaseEndpoint(query);
         const data = await response.json();
@@ -49,11 +58,12 @@ class Similar extends Component {
       {
         error: false
       },
-      await setSuggestedBeers()
+      await setSimilarBeers()
     );
   };
 
-  downloadedItems = id => {
+  downloadedItems = item => {
+    const { id } = item || {};
     const { fetchedItems } = this.state;
     const alreadyFetched = fetchedItems;
     const bySourceIndex = ({ id: sourceId }) => sourceId === id;
@@ -68,7 +78,7 @@ class Similar extends Component {
       let countLeftToFetch = quantity - alreadyFetched.length;
       // eslint-disable-next-line no-plusplus
       while (countLeftToFetch--) {
-        getRandomBeer(index);
+        getRandomBeer(item, countLeftToFetch);
       }
     };
 
@@ -109,10 +119,8 @@ class Similar extends Component {
         <LoadingOrError error={error} />
       </div>
     );
-
     const handleItemClick = item => {
-      const { id } = item;
-      downloadedItems(id);
+      downloadedItems(item);
       itemStoreHandler(item);
     };
 
