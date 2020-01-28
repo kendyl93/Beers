@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import { fethByBaseEndpoint, BASE_ENDPOINT } from '../../../api';
+import { fethByBaseEndpoint } from '../../../api';
 import { itemErrorChecker, statusHandler } from '../../../ErrorHandler';
 import { getBeer, openModal } from '../../../store/actions/index';
 import { getBeerDetails, getModalOpen } from '../../../store/actions/selectors';
+import ListView from '../../../Components/UI/ListView/ListView';
 
 import './List.scss';
 
@@ -74,9 +73,10 @@ class List extends Component {
 
   handleScroll = e => {
     const { maybeEndOfListReached, items, pending } = this.state;
+    const { handleScroll } = this;
 
     if (maybeEndOfListReached) {
-      window.removeEventListener('scroll', this.handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     }
 
     const { innerHeight, scrollY } = window;
@@ -93,52 +93,40 @@ class List extends Component {
 
   componentDidMount = () => {
     const { maybeEndOfListReached, allowInfiniteScroll } = this.state;
-
+    const { handleScroll } = this;
     this.nextBeersDownloader();
 
     const canBeLoadedMrore = !maybeEndOfListReached && allowInfiniteScroll;
 
     if (canBeLoadedMrore) {
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('scroll', handleScroll);
     }
   };
 
   componentWillUnmount = () => {
-    return window.removeEventListener('scroll', this.handleScroll);
+    const { handleScroll } = this;
+
+    return window.removeEventListener('scroll', handleScroll);
   };
 
   render() {
     const { items, pending, maybeError, maybeEndOfListReached } = this.state;
     const { openModalHandler, beersStoreHandler } = this.props;
 
+    const handleItemClick = item => {
+      openModalHandler();
+      beersStoreHandler(item);
+    };
+
     const errorMessage = <p>An error occured getting data</p>;
-
-    const itemList = (
-      <div className="list-wrapper row-spacing">
-        {items.map(item => {
-          const { id } = item;
-
-          return (
-            <div
-            className="item-wrapper"
-              key={id}
-              onClick={() => {
-                openModalHandler();
-                beersStoreHandler(item);
-              }}
-            >
-              <Link to={`/beer/${id}`}>
-                <Thumbnail item={item} />
-              </Link>
-            </div>
-          );
-        })}
-      </div>
-    );
 
     const endOfListMessage = maybeEndOfListReached && <p>THE END</p>;
     const loadingView = pending && <LoadingOrError error={maybeError} />;
-    const body = !maybeError ? itemList : errorMessage;
+    const body = !maybeError ? (
+      <ListView items={items} handleItemClick={handleItemClick} />
+    ) : (
+      errorMessage
+    );
 
     return (
       <div className="List">

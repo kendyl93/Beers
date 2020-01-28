@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BeerReviewer from './BeerReviewer/BeerReviewer';
+import Beers from './Beers/Beers';
 import './App.scss';
 
 const App = () => (
@@ -9,7 +9,7 @@ const App = () => (
       <span className="highlighted-part">BEER</span>
       GURU
     </h1>
-    <BeerReviewer />
+    <Beers />
   </main>
 );
 

@@ -17,7 +17,8 @@ const matchSourcePathname = sourcePath =>
 
 const getSourcePathname = sourcePath =>
   window.location.pathname.match(sourcePath)[0];
-class BeerReviewer extends Component {
+
+class Beers extends Component {
   // eslint-disable-next-line camelcase
   UNSAFE_componentWillMount() {
     this.locationHandler();
@@ -56,7 +57,7 @@ class BeerReviewer extends Component {
   }
 }
 
-BeerReviewer.propTypes = {
+Beers.propTypes = {
   onModalOpen: PropTypes.func
 };
 
@@ -68,4 +69,4 @@ const mapDispatchToProps = dispatch => ({
   onModalOpen: () => dispatch(openModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BeerReviewer);
+export default connect(mapStateToProps, mapDispatchToProps)(Beers);

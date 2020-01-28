@@ -17,7 +17,8 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-weight: normal;
 }
 
@@ -28,7 +29,7 @@ h1 {
 
 h4 {
   font-size: $baseFontSize * 1.2;
-  margin: $baseFontSize 0;
+  margin-bottom: $baseFontSize * 2;
 }
 
 a {

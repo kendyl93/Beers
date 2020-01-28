@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getBeer } from '../../../store/actions/index';
-import Thumbnail from '../../../Components/Thumbnail/Thumbnail';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
 import { statusHandler, itemErrorChecker } from '../../../ErrorHandler';
 import { fethByBaseEndpoint } from '../../../api';
 import { getBeerDetails } from '../../../store/actions/selectors';
+import ListView from '../../../Components/UI/ListView/ListView';
 
 import './Similar.scss';
 
@@ -27,25 +26,11 @@ class Similar extends Component {
 
       try {
         const response = await fethByBaseEndpoint(query);
-
-        const maybeError = statusHandler(response);
-        if (maybeError) {
-          throw statusHandler(response);
-        }
-
         const data = await response.json();
-
-        const dataExist = itemErrorChecker(data);
-        if (dataExist) {
-          return;
-        }
-
         const beer = data.shift();
 
         const { fetchedItems } = this.state;
-        const downloadItems = [...fetchedItems];
-        // here is we test what to do with new item,
-        // to splice it or push into the array
+        const downloadItems = fetchedItems;
 
         if (indexOfANewBeer) {
           downloadItems.splice(indexOfANewBeer, 0, beer);
@@ -69,12 +54,12 @@ class Similar extends Component {
     );
   };
 
-  // download and store items
   downloadedItems = id => {
     const { fetchedItems } = this.state;
     const alreadyFetched = fetchedItems;
     const bySourceIndex = ({ id: sourceId }) => sourceId === id;
     const index = alreadyFetched.findIndex(bySourceIndex);
+
     alreadyFetched.splice(index, 1);
 
     const fetchByCount = () => {
@@ -88,7 +73,6 @@ class Similar extends Component {
       }
     };
 
-    // here is we download new items
     this.setState(
       {
         pending: true,
@@ -99,16 +83,17 @@ class Similar extends Component {
   };
 
   renderBeers = () => {
-    // verification whether the loading is finished and items need to be rendered
     const { fetchedItems, pending, quantity } = this.state;
     const beersAreReadyForRender = fetchedItems.length === quantity && pending;
 
-    if (beersAreReadyForRender) {
-      this.setState({
-        pending: false,
-        items: fetchedItems
-      });
+    if (!beersAreReadyForRender) {
+      return;
     }
+
+    this.setState({
+      pending: false,
+      items: fetchedItems
+    });
   };
 
   componentDidMount = () => {
@@ -118,35 +103,24 @@ class Similar extends Component {
   render() {
     const { pending, items, error } = this.state;
     const { itemStoreHandler } = this.props;
-    const loading = pending && <LoadingOrError error={error} />;
     const { renderBeers, downloadedItems } = this;
+
+    const loading = pending && <LoadingOrError error={error} />;
+
+    const handleItemClick = item => {
+      const { id } = item;
+      downloadedItems(id);
+      itemStoreHandler(item);
+    };
 
     renderBeers();
 
     return (
-      <div className="SuggestionList">
-        <h4 className="title">With this beer people also like next:</h4>
+      <div className="similar">
+        <h4 className="hint">Have you tried one of theese ?</h4>
         {loading}
         {!pending && (
-          <ul className="list">
-            {items.map(item => {
-              const { id } = item;
-
-              return (
-                <li className="item" key={id}>
-                  <Link
-                    to={`/beer/${id}`}
-                    onClick={() => {
-                      downloadedItems(id);
-                      itemStoreHandler(item);
-                    }}
-                  >
-                    <Thumbnail item={item} />
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          <ListView items={items} handleItemClick={handleItemClick} />
         )}
       </div>
     );
