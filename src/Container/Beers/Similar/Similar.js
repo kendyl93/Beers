@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 
 import { getBeer } from '../../../store/actions/index';
 import LoadingOrError from '../../ErrorBoundary/LoadingOrError';
-import {
-  fethByBaseEndpoint,
-  getSimilarBeersQuery,
-  randomQuery
-} from '../../../api';
+import { fethByBaseEndpoint, getSimilarBeersQuery } from '../../../api';
 import { getBeerDetails } from '../../../store/actions/selectors';
 import ListView from '../../../UI/ListView/ListView';
 

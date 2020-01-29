@@ -24,7 +24,6 @@ class Details extends Component {
     return nextProps.beer !== beer || pending;
   }
 
-  // if item is undefined then read its id from location
   beer = sourceBeer => {
     const beer = sourceBeer
       ? null
@@ -60,12 +59,13 @@ class Details extends Component {
   };
 
   componentDidMount = () => {
-    // here is it checks has the beer been preloaded or not
     const { beer } = this.props;
     const anyBeerContent = Object.keys(beer).length !== 0;
+
     if (anyBeerContent) {
       return;
     }
+
     this.beer();
   };
 
