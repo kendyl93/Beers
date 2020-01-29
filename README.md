@@ -2,6 +2,11 @@
 
 NetGuru task
 
+# Author
+
+name: Pawel Stanecki
+e-mail: [p.stanecki93@gmail.com](mailto:p.stanecki93@gmail.com)
+
 # Run the app
 
 In order to run the app follow these steps:
