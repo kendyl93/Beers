@@ -7,25 +7,26 @@
     "start": "webpack-dev-server --open --mode development",
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "format": "prettier --check \"*.js\"",
-    "format:fix": "prettier --write \"**/*.js\"",
-    "lint": "eslint ./ --ext \".js,.jsx\" --max-warnings=0",
-    "lint:fix": "eslint ./ --ext \".js,.jsx\" --max-warnings=0 --fix",
-    "stylelint": "stylelint *.scss --cache",
-    "stylelint:fix": "stylelint *.scss --cache --fix",
-    "check": "npm run lint && npm run format && npm run stylelint"
+    "format": "prettier --check \"./src/**/*.js\"",
+    "format:fix": "prettier --write \"./src/**/*.js\"",
+    "lint": "eslint ./src --ext \".js,.jsx\" --max-warnings=0",
+    "lint:fix": "eslint ./src --ext \".js,.jsx\" --max-warnings=0 --fix",
+    "stylelint": "stylelint src/**/*.scss --cache",
+    "stylelint:fix": "stylelint src/**/*.scss --cache --fix",
+    "check": "npm run lint && npm run format && npm run stylelint",
+    "build": "webpack --mode production"
   },
   "lint-staged": {
-    "**/{**/!(*.min).js,*.jsx,*.json,*.scss,*.css,*.md}": [
+    "src/**/{**/!(*.min).js,*.jsx,*.json,*.scss,*.css,*.md}": [
       "prettier --write",
       "git add"
     ],
-    "**/{**/!(*.min).js,*.jsx}": [
+    "src/**/{**/!(*.min).js,*.jsx}": [
       "eslint -c .eslintrc --fix",
       "echo test",
       "git add"
     ],
-    "**/*.scss": [
+    "src/**/*.scss": [
       "stylelint --syntax scss",
       "git add"
     ]

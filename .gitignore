@@ -1,4 +1,6 @@
+# modules
 node_modules
 
+# rest
 .DS_Store
 .stylelintcache
