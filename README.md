@@ -2,7 +2,7 @@
 
 Beers list with its details
 
-Working app can be found on GitHub Pages: [Beers](https://kendyl93.github.io/)
+Working app can be found on GitHub Pages: [Beers](https://kendyl93.github.io/Beers)
 
 #### Main view
 
