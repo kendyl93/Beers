@@ -7,12 +7,13 @@
     "start": "webpack-dev-server --open --mode development",
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "format": "prettier --check \"{client,server}/**/*.{js,jsx}\"",
-    "format:fix": "prettier --write \"{client,server}/**/*.{js,jsx}\"",
+    "format": "prettier --check \"*.js\"",
+    "format:fix": "prettier --write \"**/*.js\"",
     "lint": "eslint ./ --ext \".js,.jsx\" --max-warnings=0",
     "lint:fix": "eslint ./ --ext \".js,.jsx\" --max-warnings=0 --fix",
-    "stylelint": "stylelint client/**/*.scss --cache",
-    "stylelint:fix": "stylelint client/src/**/*.scss --cache --fix"
+    "stylelint": "stylelint *.scss --cache",
+    "stylelint:fix": "stylelint *.scss --cache --fix",
+    "check": "npm run lint && npm run format && npm run stylelint"
   },
   "lint-staged": {
     "**/{**/!(*.min).js,*.jsx,*.json,*.scss,*.css,*.md}": [
@@ -32,7 +33,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged &&  npm run test",
-      "pre-push": "lint-staged &&  npm run test"
+      "pre-push": "npm run check &&  npm run test"
     }
   },
   "jest": {
