@@ -2,6 +2,31 @@
 
 Beers list with its details
 
+## Project consists of(Most important listed):
+
+### API endpoint
+
+- [PUNK API](https://punkapi.com/)
+
+### Frontend
+
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [React-Redux](https://react-redux.js.org/)
+
+### Tests
+
+- [Jest](https://jestjs.io/)
+- [Enzyme](https://airbnb.io/enzyme/)
+
+### Other:
+
+- [Eslint](https://github.com/eslint/eslint)
+- [Prettier](https://github.com/prettier/prettier)
+- [Stylelint](https://github.com/stylelint/stylelint)
+- [Webpack](https://github.com/webpack/webpack)
+- [Husky](https://github.com/typicode/husky)
+
 # Author
 
 name: Pawel Stanecki
