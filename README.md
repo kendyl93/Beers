@@ -4,7 +4,13 @@ Beers list with its details
 
 Working app can be found on GitHub Pages: [Beers](https://kendyl93.github.io/)
 
+#### Main view
+
 ![Page view](docs/page.png)
+
+#### Details view
+
+![Page view](docs/details.png)
 
 ## Project consists of(Most important listed):
 
