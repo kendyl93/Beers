@@ -14,7 +14,8 @@
     "stylelint": "stylelint src/**/*.scss --cache",
     "stylelint:fix": "stylelint src/**/*.scss --cache --fix",
     "check": "npm run lint && npm run format && npm run stylelint",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "deploy": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages"
   },
   "lint-staged": {
     "src/**/{**/!(*.min).js,*.jsx,*.json,*.scss,*.css,*.md}": [

@@ -4,7 +4,7 @@ module.exports = {
   entry: ['@babel/polyfill', './index.js'],
   output: {
     path: `${__dirname}/dist`,
-    publicPath: '/',
+    publicPath: './',
     filename: 'bundle.js'
   },
   module: {
