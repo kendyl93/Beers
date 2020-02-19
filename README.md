@@ -1,6 +1,6 @@
-# BeerGuru 🍺
+# Beers 🍺
 
-NetGuru task
+Beers list with its details
 
 # Author
 

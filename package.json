@@ -1,5 +1,5 @@
 {
-  "name": "BeerGuru",
+  "name": "Beers",
   "version": "1.0.0",
   "description": "App created for an interview process",
   "main": "index.js",
@@ -46,14 +46,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kendyl93/BeerGuru.git"
+    "url": "git+https://github.com/kendyl93/Beers.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kendyl93/BeerGuru/issues"
+    "url": "https://github.com/kendyl93/Beers/issues"
   },
-  "homepage": "https://github.com/kendyl93/BeerGuru#readme",
+  "homepage": "https://github.com/kendyl93/Beers#readme",
   "devDependencies": {
     "@babel/core": "7.8.3",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
