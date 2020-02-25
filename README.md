@@ -47,7 +47,7 @@ e-mail: [p.stanecki93@gmail.com](mailto:p.stanecki93@gmail.com)
 In order to run the app follow these steps:
 
 1. Make sure you are in a root folder and run `npm install` to install all dependencies.
-2. Run the app typing `npm run start`. App should opem automatically in `localhost:8080`.
+2. Run the app typing `npm run start`. App should open automatically in `localhost:8080`.
 3. Enjoy ! 🍺
 
 ## Some notes
